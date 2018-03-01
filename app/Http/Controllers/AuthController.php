@@ -31,7 +31,7 @@ class AuthController extends Controller
             'email' => 'required|unique:users|email',
             'password' => 'required|confirmed'
 
-        ]);
+        ]); 
 
 
         $user = User::create([
@@ -48,7 +48,7 @@ class AuthController extends Controller
 
             'canWrite' => true,
 
-            'klasse_id' => 1,
+            'klasse_id' => 3,
         ]);
 
         auth()->login($user);
