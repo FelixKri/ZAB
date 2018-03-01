@@ -19,23 +19,27 @@ class RechnungController extends Controller
         }
     }
     public function fill(){
-
+        $user = Auth::user();
         //Klassennamen aus dem request extrahieren
         $klassen_arr = Array();
         foreach(request()->all() as $request){
             array_push($klassen_arr, $request);
         }
         array_shift($klassen_arr);
-        //id's der ausgewählten klassen filtern
-        //dd($klassen_arr);
-        $ids = Klasse::where('name',$klassen_arr)->pluck('id');
-        dd($ids);
+        //id's der ausgewählten klassen filtern;
+        $ids = Klasse::whereIn('name',$klassen_arr)->pluck('id');
 
-
-        $klassen = Klasse::all();
         //schüler suchen welche den gefilterten Klassen angehören
-        $schueler = User::where('klasse_id', "1,0")->get();
+        $schueler = User::whereIn('klasse_id', $ids)->get();
 
-        dd($schueler);
+        return view('bills.fill',compact('user','schueler', 'klassen_arr'));
+    }
+    public function store(){
+        dd(request()->all());
+        //validieren
+
+        //speichern
+
+        //weiterleiten
     }
 }

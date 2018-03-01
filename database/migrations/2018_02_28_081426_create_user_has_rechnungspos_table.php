@@ -17,6 +17,7 @@ class CreateUserHasRechnungsposTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('rechnungspos_id');
+            $table->boolean('bezahlt');
             $table->integer('betrag');
             $table->timestamps();
         });

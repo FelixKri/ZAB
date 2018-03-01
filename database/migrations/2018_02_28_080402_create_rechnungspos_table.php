@@ -15,7 +15,7 @@ class CreateRechnungsposTable extends Migration
     {
         Schema::create('rechnungspos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('person_id');
+            $table->string('bezeichnung');
             $table->integer('gesamtbetrag');
             $table->boolean('bezahlt');
             $table->integer('rechnungs_id');
