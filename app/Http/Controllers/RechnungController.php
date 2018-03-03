@@ -12,27 +12,31 @@ class RechnungController extends Controller
         if(Auth::user()->canWrite == true){
             $user = Auth::user();
             $klassen = Klasse::all();
-            return view('bills.create', compact('user','klassen'));
+            $data = null;
+            return view('bills.create', compact('user','klassen', 'data'));
         }
         else{
             return redirect('/');
         }
     }
     public function fill(){
+        //dd(request()->all());
         $user = Auth::user();
         //Klassennamen aus dem request extrahieren
-        $klassen_arr = Array();
-        foreach(request()->all() as $request){
-            array_push($klassen_arr, $request);
-        }
-        array_shift($klassen_arr);
+        $klassen_arr = explode("|", request()->classes);
         //id's der ausgewählten klassen filtern;
         $ids = Klasse::whereIn('name',$klassen_arr)->pluck('id');
 
         //schüler suchen welche den gefilterten Klassen angehören
         $schueler = User::whereIn('klasse_id', $ids)->get();
 
-        return view('bills.fill',compact('user','schueler', 'klassen_arr'));
+        return response()->json([
+            //request()->all(),
+            "success" => true,
+            "schueler" => $schueler,
+            "klassen" => $klassen_arr
+        ]);
+        //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
     public function store(){
         dd(request()->all());
