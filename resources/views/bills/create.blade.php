@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+    <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre
     <h1>Neue Rechnung erstellen:</h1>
     <h2>Klassen auswählen:</h2>
     <div class="container">
@@ -23,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <input type="button" value="Rechnungsposition hinzufügen" class="btn btn-success"
-                               onclick="add_fields();">
+                               onclick="add_fields();" id="rechnungspos_val">
                         <div id="wrapper">
 
                             <!-- Hier kommen Rechnungspositionen hin (Javascript) -->
@@ -46,7 +47,7 @@
         function printschueler(item, index) {
 
             insertion += '<div class="form-group row">'
-                + item['vorName'] + ' ' + item['nachName'] + ': <input type="number" id="' + item['id'] + '" name="' + item['id'] + '" placeholder="Betrag" class="form-control"> ' +
+                + item['vorName'] + ' ' + item['nachName'] + ': <input type="number" id="'+ counter + '_' + item['id'] + '" name="' + item['id'] + '" placeholder="Betrag" class="form-control"> ' +
                 '</div>';
         }
 
@@ -88,7 +89,7 @@
     </script>
     <script>
         function distribute(id) {
-            id=id-1;
+            id=-1;
             console.log(id);
             betrag = document.getElementById("gesamtbetrag_"+id).value;
             console.log(betrag);
