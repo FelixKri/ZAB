@@ -4,8 +4,14 @@
     <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre -->
     <h1>Neue Rechnung erstellen:</h1>
     <h2>Klassen auswählen:</h2>
-    <div class="container">
         <div class="row">
+            <div class="col col-sm-4">
+                <div class="jumbotron">
+                    <h4> Ausgewählte Schüler: </h4>
+                    <div id="studentlist">
+                    </div>
+                </div>
+            </div>
             <form action="/bill/new" method="post">
                 {{csrf_field()}}
                 @foreach($klassen as $klasse)

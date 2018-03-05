@@ -109,7 +109,7 @@ class CreateUsersTable extends Migration
 
 
         //erstellen von zufallsusern
-        for($i = 0; $i<=30; $i++){
+        for($i = 0; $i<=10; $i++){
             User::create([
                 'vorName' => $this->generateRandomString(),
                 'nachName' => $this->generateRandomString(),

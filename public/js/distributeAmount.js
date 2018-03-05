@@ -6,6 +6,6 @@ function getNumberOfFormInputs(id){
 
 function distribute(id) {
     numberOfFormInputs = getNumberOfFormInputs(id);
-    alert(numberOfFormInputs);
+
 }
 

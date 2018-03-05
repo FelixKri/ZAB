@@ -8,7 +8,7 @@ function printschueler(item, index) {
     inserttext += "<tr>" +
         "<td>" + counter + "</td>" +
         "<td>" + item['vorName'] + " " + item['nachName'] + "</td>" +
-        "<td> <input type='number' id='" + counter + "_" + item['id'] + "' name='" + item['id'] + "' placeholder='Betrag' class='form-control'> </td> " +
+        "<td> <input type='number' id='" + counter + "_" + item['id'] + "' name='" + counter + "_" + item['id'] + "' placeholder='Betrag' class='form-control'> </td> " +
         "</tr>";
     //alert(inserttext);
 }
@@ -22,6 +22,10 @@ function add_fields() {
     schueler.forEach(printschueler);
     document.getElementById("schueler").innerHTML += inserttext;
 
+}
+var insertion = "";
+function printqueriedstudents(item, index) {
+    insertion += item['vorName'] + " " + item['nachName'] + "<br>";
 }
 
 $(".classes").on('click', function () {
@@ -43,6 +47,9 @@ $(".classes").on('click', function () {
 
         success: function (response) {
             schueler = response['schueler'];
+            schueler.forEach(printqueriedstudents);
+            document.getElementById('studentlist').innerHTML = insertion;
+            insertion = " ";
             //document.write("<pre>"+schueler[1]['vorName']+"<pre>");
         }
     })
