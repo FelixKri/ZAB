@@ -32,9 +32,7 @@ class RechnungController extends Controller
 
         return response()->json([
             //request()->all(),
-            "success" => true,
             "schueler" => $schueler,
-            "klassen" => $klassen_arr
         ]);
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
