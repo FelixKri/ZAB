@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rechnungspos extends Model
 {
+	protected $fillable = [
+        'bezeichnung', 'gesamtbetrag', 'bezahlt', 'rechnungs_id'
+    ];
+
     public function rechnungskopf(){
         return $this->belongsTo(Rechnung::class);
     }

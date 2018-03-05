@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rechnung extends Model
 {
+	protected $fillable = [
+        'reason', 'abrechner_id'
+    ];
+
     public function rechnungspos(){
         return $this->hasMany(Rechnungspos::class);
     }

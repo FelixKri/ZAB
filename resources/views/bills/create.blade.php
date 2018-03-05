@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre
+    <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre -->
     <h1>Neue Rechnung erstellen:</h1>
     <h2>Klassen auswählen:</h2>
     <div class="container">
