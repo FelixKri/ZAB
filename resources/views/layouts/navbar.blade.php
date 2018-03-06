@@ -34,9 +34,9 @@
                             {{$user->vorName}} {{$user->nachName}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Offene Rechnungen</a>
-                            <a class="dropdown-item" href="#">Bezahlte Rechnungen</a>
-                            <a class="dropdown-item" href="#">Auloggen</a>
+                            <a class="dropdown-item" href="/">Offene Rechnungen</a>
+                            <a class="dropdown-item" href="/archive">Bezahlte Rechnungen</a>
+                            <a class="dropdown-item" href="/logout">Auloggen</a>
                         </div>
                     </li>
             </ul>

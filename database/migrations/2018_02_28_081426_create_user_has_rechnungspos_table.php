@@ -42,6 +42,27 @@ class CreateUserHasRechnungsposTable extends Migration
             'bezahlt' => false, 
             'betrag' => 100
         ]);
+        user_has_rechnungspos::create([
+            //'vorName' => 'Felix',
+            'user_id' => 1, 
+            'rechnungspos_id' => 3, 
+            'bezahlt' => true, 
+            'betrag' => 800
+        ]);
+        user_has_rechnungspos::create([
+            //'vorName' => 'Felix',
+            'user_id' => 1, 
+            'rechnungspos_id' => 4, 
+            'bezahlt' => true, 
+            'betrag' => 100
+        ]);
+        user_has_rechnungspos::create([
+            //'vorName' => 'Felix',
+            'user_id' => 1, 
+            'rechnungspos_id' => 5, 
+            'bezahlt' => false, 
+            'betrag' => 300
+        ]);
     }
 
     /**

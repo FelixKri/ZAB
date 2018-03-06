@@ -11,12 +11,14 @@
 |
 */
 
-Route::get('/', 'SiteController@show');
+Route::get('/', 'RechnungController@show');
+Route::post('/', 'RechnungController@pay');
+Route::get('/archive', 'RechnungController@showArchive');
 
 Route::get('/register', 'AuthController@create');
 Route::post('/register', 'AuthController@store');
 
-Route::get('/login', 'SessionController@create');
+Route::get('/login', 'SessionController@create')->name('login');
 Route::post('/login', 'SessionController@store');
 Route::get('/logout', 'SessionController@destroy');
 

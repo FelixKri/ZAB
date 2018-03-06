@@ -46,6 +46,18 @@ class CreateRechnungsposTable extends Migration
             'bezahlt' => true,
             'rechnungs_id' => 3
         ]);
+        Rechnungspos::create([
+            'bezeichnung' => 'Test Rechnungspos 3 bezahlt nur von Felix', 
+            'gesamtbetrag' => 200, 
+            'bezahlt' => false,
+            'rechnungs_id' => 3
+        ]);
+        Rechnungspos::create([
+            'bezeichnung' => 'Test Rechnungspos 3 bezahlt aber nicht von Felix -> Testweise..', 
+            'gesamtbetrag' => 200, 
+            'bezahlt' => true,
+            'rechnungs_id' => 3
+        ]);
     }
 
     /**
