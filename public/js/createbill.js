@@ -8,7 +8,7 @@ function printschueler(item, index) {
     inserttext += "<tr>" +
         "<td>" + counter + "</td>" +
         "<td>" + item['vorName'] + " " + item['nachName'] + "</td>" +
-        "<td> <input type='number' id='" + counter + "_" + item['id'] + "' name='" + counter + "_" + item['id'] + "' placeholder='Betrag' class='form-control'> </td> " +
+        "<td> <input type='number' id='" + counter + "_" + item['id'] + "' name='" + counter + "_" + item['id'] + "' placeholder='Betrag' class='form-control schuelerbetrag'> </td> " +
         "</tr>";
     //alert(inserttext);
 }
@@ -20,12 +20,19 @@ function add_fields() {
         "<td> <input type='button' value='Betrag auf alle Schüler aufteilen' class='btn btn-success' onclick='distribute(counter);'> </td> </tr>" +
         "<tr><th>ID</th><th>Name:</th> <th>Betrag:</th></tr>";
     schueler.forEach(printschueler);
-    document.getElementById("schueler").innerHTML += inserttext;
-
 }
-var insertion = "";
+
+var insertion = "<table>" +
+    "<tr>" +
+    "<th>Name:</th>" +
+    "<th>Auswahl: </th>" +
+    "</tr>";
+
 function printqueriedstudents(item, index) {
-    insertion += item['vorName'] + " " + item['nachName'] + "<br>";
+    insertion += "<tr> " +
+        "<td>" + item['vorName'] + " " + item['nachName'] + "</td>" +
+        "<td><input type='checkbox' name='" + item['id'] + "_chkbx' value='" + item['id'] + "'></td>" +
+        "</tr>";
 }
 
 $(".classes").on('click', function () {
@@ -48,7 +55,8 @@ $(".classes").on('click', function () {
         success: function (response) {
             schueler = response['schueler'];
             schueler.forEach(printqueriedstudents);
-            document.getElementById('studentlist').innerHTML = insertion;
+            document.getElementById('studentlist').innerHTML = insertion + "</table> <tr><td> " +
+                "<br><input type='button' value='Betrag auf alle Schüler aufteilen' class='btn btn-primary' onclick='checkAll();'> </td> </tr>";
             insertion = " ";
             //document.write("<pre>"+schueler[1]['vorName']+"<pre>");
         }

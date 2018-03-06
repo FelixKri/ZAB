@@ -38,6 +38,9 @@ class RechnungController extends Controller
     }
     public function store(){
         dd(request()->all());
+        $rechnungskopf = Array();
+        $grund = request()->text;
+
         //validieren
 
         //speichern
