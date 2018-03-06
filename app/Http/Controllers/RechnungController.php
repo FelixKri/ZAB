@@ -21,8 +21,7 @@ class RechnungController extends Controller
         if(Auth::user()->canWrite == true){
             $user = Auth::user();
             $klassen = Klasse::all();
-            $data = null;
-            return view('bills.create', compact('user','klassen', 'data'));
+            return view('bills.create', compact('user','klassen'));
         }
         else{
             return redirect('/');
