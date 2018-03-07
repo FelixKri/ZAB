@@ -512,7 +512,7 @@ module.exports = defaults;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.13.0
+ * @version 1.12.9
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -13800,14 +13800,15 @@ module.exports = __webpack_require__(12);
 __webpack_require__(13);
 
 window.Vue = __webpack_require__(36);
-var data = { schueler: null, data: null };
+
+var data = { students: null, data: null };
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('studentlist', __webpack_require__(39));
 
 $(".classes").on('click', function () {
     var checkbox_value = "";
@@ -13827,8 +13828,9 @@ $(".classes").on('click', function () {
         },
 
         success: function success(response) {
-            data.schueler = response['schueler'];
+            data.students = response['schueler'];
             init();
+            data = { students: null, data: null };
         }
     });
 });
@@ -13836,7 +13838,7 @@ $(".classes").on('click', function () {
 function init() {
     var vm = new Vue({
         el: '#vue',
-        daata: data,
+        data: data,
         mounted: function mounted() {
             console.log('mounted');
         }
@@ -47079,11 +47081,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('Component mounted.');
+        console.log('Studentlist mounted.');
     }
 });
 
@@ -47095,29 +47096,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "jumbotron" }, [
+    _c(
+      "table",
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._l(this.$parent.students, function(student) {
+          return _c("tr", [
+            _c("td", [
+              _vm._v(
+                _vm._s(student["vorName"]) + " " + _vm._s(student["nachName"])
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(1, true)
+          ])
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("Name:")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Ausgewählt:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("input", { attrs: { type: "checkbox", id: "student['id']" } })
     ])
   }
 ]

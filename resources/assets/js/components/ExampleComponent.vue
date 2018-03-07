@@ -1,23 +1,22 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="jumbotron">
+        <table>
+            <tr>
+                <th>Name:</th>
+                <th>Ausgewählt:</th>
+            </tr>
+            <tr v-for="student in this.$parent.students">
+                <td>{{student['vorName']}} {{student['nachName']}}</td>
+                <td><input type="checkbox" id="student['id']"></td>
+            </tr>
+        </table>
     </div>
 </template>
 
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
+            console.log('Studentlist mounted.')
         }
     }
 </script>

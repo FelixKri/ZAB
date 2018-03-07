@@ -8,14 +8,15 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-let data = {schueler: null, data: null};
+
+let data = {students: null, data: null};
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('studentlist', require('./components/ExampleComponent.vue'));
 
 $(".classes").on('click', function () {
     var checkbox_value = "";
@@ -35,8 +36,9 @@ $(".classes").on('click', function () {
         },
 
         success: function (response) {
-            data.schueler = response['schueler'];
+            data.students = response['schueler'];
             init()
+            data = {students: null, data: null};
         }
     });
 });
@@ -44,7 +46,7 @@ $(".classes").on('click', function () {
 function init() {
     const vm = new Vue({
         el: '#vue',
-        daata: data,
+        data: data,
         mounted(){
             console.log('mounted');
         }
