@@ -14,10 +14,15 @@ $(".pay").on('click', function () {
             'rechnungsposid': this.name,
         },
         success: function (response) {
-            //Remove rechnungspos
+            //response["rechnungsposid"]
 
+            $('#' + response['rechnungsposid']).fadeOut('slow');
 
-            //alert("Removing: " + response["r"]);
+            //alert("Success");
         },
-    })
+        error: function(response){
+            alert("Error");
+            console.log(response);
+        }
+    });
 });

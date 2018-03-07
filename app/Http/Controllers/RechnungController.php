@@ -80,8 +80,7 @@ class RechnungController extends Controller
                 $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
                 $bills[$i]["abrechnerVor"] = $abrechner->vorName;
                 $bills[$i]["abrechnerNach"] = $abrechner->nachName;
-                $bills[$i]["rechnunugsposid"] = $rechnungspos->id;
-                $bills[$i]["userid"] = $user->id;
+                $bills[$i]["rechnungsposid"] = $rechnungspos->id;
             }
         }
         //dd($user, $user_has_rechnungspos, $rechnungsposes);
@@ -92,11 +91,12 @@ class RechnungController extends Controller
 
     public function pay()
     {
-        $match = ['user_id' => request()->userid, 'rechnungspos_id' => request()->rechnungsposid];
-        user_has_rechnungspos::where($match)->update('bezahlt', true);
+        $match = ['user_id' => Auth::user()->id, 'rechnungspos_id' => request()->rechnungsposid];
+        user_has_rechnungspos::where($match)
+            ->update(['bezahlt' => true]);
 
         return response()->json([
-            //"r" => $rechnungsposid
+            "rechnungsposid" => request()->rechnungsposid
         ]);
     }
 

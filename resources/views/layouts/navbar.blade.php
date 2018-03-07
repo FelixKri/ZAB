@@ -13,9 +13,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Disabled</a>
-            </li>
+            @if(Auth::check())
+                @if($user->isAdmin == true)
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/panel">Admin panel</a>
+                </li>
+                @endif
+            @endif
         </ul>
         @if(Auth::check())
             <ul class="navbar-nav my-2 my-lg-0">
