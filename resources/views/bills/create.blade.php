@@ -6,6 +6,7 @@
     <script src="{{ mix('js/app.js') }}"></script>
 @endpush
 @section('content')
+    <div class="container">
     <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre -->
     <form action="/bill/new" method="post">
         {{csrf_field()}}
@@ -18,30 +19,6 @@
         <br>
         <input type="button" value="Klassen hinzufügen" class="btn btn-primary classes">
     </form>
-    <studentlist></studentlist>
-    <form action="/bill/fill" method="post" id="billform">
-        {{csrf_field()}}
-        <div class="form-group">
-            <input type="button" value="Rechnungsposition hinzufügen" class="btn btn-success"
-                   onclick="add_fields();" id="rechnungspos_val">
-            <hr>
-            <div id="wrapper">
-                <table id="schueler">
-                    <tr>
-                        <td>
-                            <input type="text" id="text" name="text" placeholder="Zahlungsgrund"
-                                   class="form-control">
-                        </td>
-                    </tr>
-
-
-                </table>
-                <!-- Hier kommen Rechnungspositionen hin (Javascript) -->
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Rechnung Speichern" class="btn btn-primary savebill">
-        </div>
-    </form>
+    <studentform></studentform>
     </div>
 @endsection
