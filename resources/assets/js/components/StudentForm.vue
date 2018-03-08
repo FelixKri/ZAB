@@ -9,8 +9,9 @@
                 <h4>Rechnungspositionen:</h4>
                 <input type="button" id="addRechnungspos" name="addRechnungspos" class="btn btn-primary btn-small" value="Rechnungsposition Hinzufügen" v-on:click="add">
             </div>
-            <div class="form-group" v-for="item in this.$parent.counter">
-                <studentlist></studentlist>
+            <div class="form-group" v-for="item in this.root.counter">
+                <studentlist :id="root.id"></studentlist>
+                <hr>
             </div>
         </form>
 
@@ -19,10 +20,15 @@
 
 <script>
     export default {
+        props: ['id'],
+        data(){
+            return{
+                root: this.$parent
+            }
+        },
         methods:{
             add: function () {
-                alert("mounted");
-                this.$parent.counter.push("x");
+                this.root.counter.push("x");
             }
         },
         mounted() {

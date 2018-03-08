@@ -9,7 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-let data = {students: null, data: null, counter: []};
+let data = {students: null, data: null, counter: [], id: 1};
  /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -19,6 +19,6 @@
         <br>
         <input type="button" value="Klassen hinzufügen" class="btn btn-primary classes">
     </form>
-    <studentform></studentform>
+    <studentform :id="id" v-if="students != null && students.length > 0"></studentform>
     </div>
 @endsection
