@@ -39,40 +39,28 @@
             sendajax: function () {
 
                 let numItems = $('.rechnungsposname').length; //Ermittlung Anzahl von Rechnungspositionen
-                console.log("Anzahl der Rechnungspostionen: " + numItems);
                 let rechnungspos_name;
                 let values = [];
                 let user_ids = [];
                 let rechnungspositionen = [];
 
                 let rechnungsgrund = $("#grund").val(); //Ermittlung des Abrechnungsgrundes
-                console.log("Rechnungsgrund: " + rechnungsgrund);
 
                 /* For Loop zum Sammeln der Daten der verschiedenen Rechnungspositionen */
                 for (let id = 1; id <= numItems; id++) {
-                    console.log("Current ID: " + id);
                     rechnungspos_name = $("#rechnungsposname_" + id).val();
                     console.log("rechnungspos name: " + rechnungspos_name);
                     $("#rechnungspos_" + id +" .rechnungspos_betrag").each(function () {
-                        console.log("IM IN");
                         values.push($(this).val());
                         user_ids.push($(this).attr("name").split('_')[0]);
 
                     });
-
-                    if(values.length === 0 || user_ids.length ===    0){
-                        console.log("Something is missing");
-                    }
-
-                    console.log("User ids: " + user_ids);
-                    console.log("Values: " + values);
 
                     rechnungspositionen.push([rechnungspos_name, values, user_ids]);
                     values = [];
                     user_ids = [];
                 }
 
-                console.log(rechnungspositionen);
 
                 /* Ajax Request and Backend API */
                 $.ajax({
@@ -82,7 +70,7 @@
                     data: {
                         '_token': $('input[name=_token]').val(),
                         'rechnungsgrund': rechnungsgrund,
-                        'rechnungspositionen': rechnungspositionen,
+                        'rechnungspositionen': JSON.stringify(rechnungspositionen),
 
                     },
 
