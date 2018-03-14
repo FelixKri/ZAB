@@ -24,6 +24,6 @@ Route::get('/logout', 'SessionController@destroy');
 
 Route::get('/bill/new', 'RechnungController@create');
 Route::post('/bill/new', 'RechnungController@fill');
-Route::post('bill/save', 'RechnungController@store');
+Route::post('bill/store', 'RechnungController@store');
 
 Route::get('/admin/panel', 'PanelController@create');

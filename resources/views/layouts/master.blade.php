@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ URL::asset('css/formcreate.css') }}">
     <title>Zahlungssystem</title>
-
+    @yield('headers')
 </head>
 <body>
 @include('layouts.navbar')

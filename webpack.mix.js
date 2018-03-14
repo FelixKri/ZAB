@@ -12,4 +12,4 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js');
-
+mix.js('ressources/assets/js/sendajaxrequest.js', 'public/js');

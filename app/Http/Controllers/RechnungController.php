@@ -45,15 +45,35 @@ class RechnungController extends Controller
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
     public function store(){
-        dd(request()->all());
-        $rechnungskopf = Array();
-        $grund = request()->text;
 
-        //validieren
+        $rechnung = new Rechnung;
+        $rechnung->reason = "Ausflug";
+        $rechnung->abrechner_id = Auth::user()->id;
+        $rechnung->save();
+        $i = 0;
+        foreach(request()->rechnungspositionen as $rechnungsposdata){
+            $rechnungsposition = new Rechnungspos();
+            $rechnungsposition->bezeichnung = $rechnungsposdata[0];
+            $rechnungsposition->gesamtbetrag = 1000;
+            $rechnungsposition->rechnungs_id = $rechnung->id;
+            $rechnungsposition->bezahlt = false;
+            $rechnungsposition->save();
+            $j = 0;
+            foreach($rechnungsposdata[2] as $user_ids) {
+                $user_has_rechnungspos = new user_has_rechnungspos();
+                $user_has_rechnungspos->user_id = (int)$user_ids;
+                $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
+                $user_has_rechnungspos->bezahlt = false;
+                $user_has_rechnungspos->betrag = $rechnungsposdata[1][$j];
+                $user_has_rechnungspos->save();
+                $j++;
+            }
+        }
 
-        //speichern
+        return response()->json([
+            "success" => "oida es geht"
+        ]);
 
-        //weiterleiten
     }
 
     public function show(){

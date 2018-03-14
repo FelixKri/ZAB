@@ -1,10 +1,15 @@
 @extends('layouts.master')
 @push('scripts')
-    <!--<script type="text/javascript" src="{{ URL::asset('js/sendrequest.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/createbill.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/distributeAmount.js') }}"></script> -->
+    <script xmlns="">
+        var Laravel = {
+            'csrfToken' : '{{csrf_token()}}'
+        };
+    </script>
     <script src="{{ mix('js/app.js') }}"></script>
 @endpush
+@section('headers')
+
+@endsection
 @section('content')
     <div class="container">
     <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre -->

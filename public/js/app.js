@@ -512,7 +512,7 @@ module.exports = defaults;
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.13.0
+ * @version 1.12.9
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -13958,7 +13958,6 @@ function init() {
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
-
 
 window._ = __webpack_require__(15);
 window.Popper = __webpack_require__(3).default;
@@ -47087,11 +47086,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['id'],
     data: function data() {
         return {
+            csrf: "",
             root: this.$parent
         };
     },
@@ -47099,10 +47103,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         add: function add() {
             this.root.counter.push("x");
+        },
+
+        sendajax: function sendajax() {
+
+            var numItems = $('.rechnungsposname').length; //Ermittlung Anzahl von Rechnungspositionen
+            console.log("Anzahl der Rechnungspostionen: " + numItems);
+            var rechnungspos_name = void 0;
+            var values = [];
+            var user_ids = [];
+            var rechnungspositionen = [];
+
+            var rechnungsgrund = $("#grund").val(); //Ermittlung des Abrechnungsgrundes
+            console.log("Rechnungsgrund: " + rechnungsgrund);
+
+            /* For Loop zum Sammeln der Daten der verschiedenen Rechnungspositionen */
+            for (var id = 1; id <= numItems; id++) {
+                console.log("Current ID: " + id);
+                rechnungspos_name = $("#rechnungsposname_" + id).val();
+                console.log("rechnungspos name: " + rechnungspos_name);
+                $("#rechnungspos_" + id + " .rechnungspos_betrag").each(function () {
+                    console.log("IM IN");
+                    values.push($(this).val());
+                    user_ids.push($(this).attr("name").split('_')[0]);
+                });
+
+                if (values.length === 0 || user_ids.length === 0) {
+                    console.log("Something is missing");
+                }
+
+                console.log("User ids: " + user_ids);
+                console.log("Values: " + values);
+
+                rechnungspositionen.push([rechnungspos_name, values, user_ids]);
+                values = [];
+                user_ids = [];
+            }
+
+            console.log(rechnungspositionen);
+
+            /* Ajax Request and Backend API */
+            $.ajax({
+
+                type: "POST",
+                url: "/bill/store",
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'rechnungsgrund': rechnungsgrund,
+                    'rechnungspositionen': rechnungspositionen
+
+                },
+
+                success: function success(response) {
+                    console.log("AJAX response gesendet");
+                }
+            });
         }
     },
     mounted: function mounted() {
-        console.log('Studentlist mounted.');
+        this.csrf = window.Laravel.csrfToken;
     }
 });
 
@@ -47117,8 +47176,13 @@ var render = function() {
   return _c("div", { staticClass: "jumbotron" }, [
     _c(
       "form",
-      { attrs: { action: "/bill/save" } },
+      { attrs: { action: "/bill/save", method: "post" } },
       [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
@@ -47147,6 +47211,16 @@ var render = function() {
             ],
             1
           )
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "btn btn-primary",
+          attrs: { type: "button", id: "send", value: "Abrechnen" },
+          on: {
+            click: function($event) {
+              _vm.sendajax()
+            }
+          }
         })
       ],
       2
@@ -47269,7 +47343,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47639,6 +47713,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['id'],
@@ -47664,45 +47743,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("input", {
-      staticClass: "form-control form-control-sm",
-      staticStyle: { width: "55%" },
-      attrs: {
-        type: "text",
-        name: "rechnungsPosName_" + _vm.id2,
-        id: "rechnungsPosName_" + _vm.id2,
-        placeholder: "Name der Position"
-      }
-    }),
-    _vm._v(" "),
-    _c(
-      "table",
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(this.$parent.$parent.students, function(student) {
-          return _c("tr", [
-            _c("td", { staticStyle: { width: "60%" } }, [
-              _vm._v(
-                _vm._s(student["vorName"]) + " " + _vm._s(student["nachName"])
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("input", {
-                staticClass: "form-control form-control-sm",
-                attrs: {
-                  type: "number",
-                  id: student["id"] + "_" + _vm.id2,
-                  name: student["id"] + "_" + _vm.id2
-                }
-              })
+    _c("div", { attrs: { id: "rechnungspos_" + _vm.id2 } }, [
+      _c("input", {
+        staticClass: "form-control form-control-sm rechnungsposname",
+        staticStyle: { width: "55%" },
+        attrs: {
+          type: "text",
+          id: "rechnungsposname_" + _vm.id2,
+          placeholder: "Name der Position"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "table",
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(this.$parent.$parent.students, function(student) {
+            return _c("tr", [
+              _c("td", { staticStyle: { width: "60%" } }, [
+                _vm._v(
+                  _vm._s(student["vorName"]) + " " + _vm._s(student["nachName"])
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("input", {
+                  staticClass:
+                    "form-control form-control-sm rechnungspos_betrag",
+                  attrs: { type: "number", name: student["id"] + "_" + _vm.id2 }
+                })
+              ])
             ])
-          ])
-        })
-      ],
-      2
-    )
+          })
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = [
