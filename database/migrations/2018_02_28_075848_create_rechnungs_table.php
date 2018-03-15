@@ -18,6 +18,7 @@ class CreateRechnungsTable extends Migration
             $table->increments('id');
             $table->string('reason');
             $table->integer('abrechner_id');
+            $table->boolean('bezahlt')->default($value = false);
             $table->timestamps();
         });
 

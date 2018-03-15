@@ -10,7 +10,7 @@
     <title>Zahlungssystem</title>
     @yield('headers')
 </head>
-<body>
+<body class="bg-dark" style="color:white;">
 
 
 <main id="vue">

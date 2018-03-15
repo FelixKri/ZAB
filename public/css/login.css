@@ -1,0 +1,25 @@
+body{
+    background-color: #1b1e21;
+    overflow: hidden;
+}
+
+.formwrapper{
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+    margin-top: 20vh;
+    width: 40vw;
+    background-color:white;
+    border-radius: 10px;
+}
+
+.loginform{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: center;
+}
+
+.loginlabel{
+    font-size: 30px;
+}

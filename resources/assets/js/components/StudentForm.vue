@@ -1,5 +1,5 @@
 <template>
-    <div class="jumbotron">
+    <div class="jumbotron text-dark">
         <form action="/bill/save" method="post">
             <input type="hidden" name="_token" :value="csrf">
             <div class="form-group">
@@ -86,3 +86,5 @@
         }
     }
 </script>
+<style>
+</style>
