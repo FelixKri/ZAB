@@ -12,7 +12,7 @@
 @endsection
 @section('content')
     <div class="container">
-    <!-- MASSIVES TODO: Das hier verschönern, eigentlich benutzbar machen ohne das ich mich selber damit verwirre -->
+    @include('layouts.navbar')
     <form action="/bill/new" method="post">
         {{csrf_field()}}
         @foreach($klassen as $klasse)

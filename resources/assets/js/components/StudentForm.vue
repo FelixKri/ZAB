@@ -32,6 +32,7 @@
             }
         },
         methods: {
+
             add: function () {
                 this.root.counter.push("x");
             },

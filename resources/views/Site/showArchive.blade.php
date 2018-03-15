@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+	@include('layouts.navbar')
     <hr>
     <h1>Bezahlte Rechnungen:</h1>
     @foreach($bills as $bill)

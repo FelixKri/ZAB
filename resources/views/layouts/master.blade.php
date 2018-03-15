@@ -11,7 +11,6 @@
     @yield('headers')
 </head>
 <body>
-@include('layouts.navbar')
 
 
 <main id="vue">

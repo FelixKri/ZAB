@@ -1,0 +1,81 @@
+.sidebar{
+    padding-top: 15px;
+    height: 100vh;
+    width: 15%;
+    float: left;
+    background-color: #1d2124;
+    color: white;
+    text-align: center;
+    position: fixed;
+}
+
+.table-wrapper{
+    height: 40vh;
+    overflow: auto;
+}
+
+.wrapper{
+    margin-left: 15vw;
+}
+
+hr{
+    color:white;
+    background-color:white;
+}
+
+.rechnungstable{
+    width: 81.2vw;
+}
+
+.t-wrapper{
+    margin-top: 15px;
+    float:left;
+    margin-left:15px;
+}
+
+.m-wrapper{
+    margin-top: 15px;
+    float:left;
+    margin-left:15px;
+}
+
+.s-wrapper{
+    margin-top: 15px;
+    float:left;
+    margin-left:15px;
+}
+
+.admintable{
+    width: 60vw;
+}
+
+.schuelertable{
+    width:19vw;
+}
+
+
+/* Scrollbar Styling */
+.scroll {
+    width: 200px;
+    height: 400px;
+    background: red;
+    overflow: scroll;
+}
+.scroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.acc-information{
+    margin-top: 73vh;
+}
+​
