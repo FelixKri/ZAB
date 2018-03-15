@@ -12,7 +12,7 @@
 @endsection
 @section('content')
     <div class="container">
-        @include('layouts.navbar')  
+        @include('layouts.navbar')
         <form action="/bill/new" method="post">
             {{csrf_field()}}
             @foreach($klassen as $klasse)

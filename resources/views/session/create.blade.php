@@ -7,8 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/><!-- Ajax stuff -->
 @endsection
 @section('content')
+    <h1 style="text-align:center; margin-top: 15vh;">Login</h1>
     <div class="row justify-content-center align-items-center">
-        <div class="formwrapper d-flex align-items-center">
+        <div class="formwrapper d-flex align-items-center text-dark">
             <form action="/login" method="post" class="loginform">
                 {{csrf_field()}}
                 <div class="form-group">
