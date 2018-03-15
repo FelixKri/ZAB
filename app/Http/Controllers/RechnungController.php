@@ -45,12 +45,13 @@ class RechnungController extends Controller
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
     public function store(){
-
+        dd(request()->rechnungsposition);
         $rechnung = new Rechnung;
         $rechnung->reason = "Ausflug";
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
         $i = 0;
+
         foreach(request()->rechnungspositionen as $rechnungsposdata){
             $rechnungsposition = new Rechnungspos();
             $rechnungsposition->bezeichnung = $rechnungsposdata[0];
@@ -59,6 +60,7 @@ class RechnungController extends Controller
             $rechnungsposition->bezahlt = false;
             $rechnungsposition->save();
             $j = 0;
+
             foreach($rechnungsposdata[2] as $user_ids) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
                 $user_has_rechnungspos->user_id = (int)$user_ids;
@@ -71,7 +73,7 @@ class RechnungController extends Controller
         }
 
         return response()->json([
-            "success" => "oida es geht"
+            "success" => "success"
         ]);
 
     }
@@ -103,6 +105,7 @@ class RechnungController extends Controller
                 $bills[$i]["rechnungsposid"] = $rechnungspos->id;
             }
         }
+
         //dd($user, $user_has_rechnungspos, $rechnungsposes);
         //dd($rechnungsposes, $user_has_rechnungspos);
         //dd($bills);
