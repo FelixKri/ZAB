@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@push('scripts')
+    <script type="text/javascript" src="{{ mix('js/payBill.js') }}"></script>
+@endpush
+
+@section('headers')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('content')
 <div class="container">
 	@include('layouts.navbar')
@@ -16,6 +24,4 @@
 	</div>
 	@endforeach
 </div>
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<script type="text/javascript" src="{{ URL::asset('js/payBill.js') }}"></script>
 @endsection
