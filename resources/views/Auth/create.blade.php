@@ -1,7 +1,12 @@
 @extends('layouts.master')
+@push('scripts')
 
+@endpush
+@section('headers')
+    <link rel="stylesheet" href="{{ URL::asset('css/register.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/><!-- Ajax stuff -->
+@endsection
 @section('content')
-
     <h1>Register</h1>
     <form action="/register" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
