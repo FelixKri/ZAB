@@ -15,8 +15,8 @@ Route::get('/', 'RechnungController@show');
 Route::post('/', 'RechnungController@pay');
 Route::get('/archive', 'RechnungController@showArchive');
 
-Route::get('/register', 'AuthController@create');
-Route::post('/register', 'AuthController@store');
+Route::get('/student/add', 'AuthController@create');
+Route::post('/student/add', 'AuthController@store');
 
 Route::get('/login', 'SessionController@create')->name('login');
 Route::post('/login', 'SessionController@store');
@@ -24,6 +24,6 @@ Route::get('/logout', 'SessionController@destroy');
 
 Route::get('/bill/new', 'RechnungController@create');
 Route::post('/bill/new', 'RechnungController@fill');
-Route::post('bill/store', 'RechnungController@store');
+Route::post('bill/store ', 'RechnungController@store');
 
 Route::get('/admin/panel', 'PanelController@create');

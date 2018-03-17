@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function __construct()
     {
 
-        $this->middleware('guest');
+        $this->middleware('auth');
 
     }
     public function create()
@@ -28,6 +28,7 @@ class AuthController extends Controller
 
             'vorName' => 'required',
             'nachName' => 'required',
+            'klasse' => 'required',
             'email' => 'required|unique:users|email',
             'password' => 'required|confirmed'
 

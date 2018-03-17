@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Klasse;
+use App\Rechnung;
+use App\Rechnungspos;
 use App\User;
 use App\user_has_rechnungspos;
-use App\Rechnungspos;
-use App\Rechnung;
+use Illuminate\Support\Facades\Auth;
 
 class RechnungController extends Controller
 {
@@ -17,23 +16,25 @@ class RechnungController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(){
-        if(Auth::user()->canWrite == true){
+    public function create()
+    {
+        if (Auth::user()->canWrite == true) {
             $user = Auth::user();
             $klassen = Klasse::all();
-            return view('bills.create', compact('user','klassen'));
-        }
-        else{
+            return view('bills.create', compact('user', 'klassen'));
+        } else {
             return redirect('/');
         }
     }
-    public function fill(){
+
+    public function fill()
+    {
         //dd(request()->all());
         $user = Auth::user();
         //Klassennamen aus dem request extrahieren
         $klassen_arr = explode("|", request()->classes);
         //id's der ausgewählten klassen filtern;
-        $ids = Klasse::whereIn('name',$klassen_arr)->pluck('id');
+        $ids = Klasse::whereIn('name', $klassen_arr)->pluck('id');
 
         //schüler suchen welche den gefilterten Klassen angehören
         $schueler = User::whereIn('klasse_id', $ids)->get();
@@ -44,7 +45,9 @@ class RechnungController extends Controller
         ]);
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
-    public function store(){
+
+    public function store()
+    {
         dd(request()->rechnungsposition);
         $rechnung = new Rechnung;
         $rechnung->reason = "Ausflug";
@@ -52,7 +55,7 @@ class RechnungController extends Controller
         $rechnung->save();
         $i = 0;
 
-        foreach(request()->rechnungspositionen as $rechnungsposdata){
+        foreach (request()->rechnungspositionen as $rechnungsposdata) {
             $rechnungsposition = new Rechnungspos();
             $rechnungsposition->bezeichnung = $rechnungsposdata[0];
             $rechnungsposition->gesamtbetrag = 1000;
@@ -61,7 +64,7 @@ class RechnungController extends Controller
             $rechnungsposition->save();
             $j = 0;
 
-            foreach($rechnungsposdata[2] as $user_ids) {
+            foreach ($rechnungsposdata[2] as $user_ids) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
                 $user_has_rechnungspos->user_id = (int)$user_ids;
                 $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
@@ -78,7 +81,8 @@ class RechnungController extends Controller
 
     }
 
-    public function show(){
+    public function show()
+    {
         $user = Auth::user();
 
         $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => false];
@@ -87,13 +91,11 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for($i = 0;$i < count($user_has_rechnungspos);$i++)
-        {
+        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
             $rechnungspos = Rechnungspos::where('id', $user_has_rechnungspos[$i]->rechnungspos_id)->first();
             //Get rechnung
-            if(isset($rechnungspos))
-            {
+            if (isset($rechnungspos)) {
                 $rechnung = Rechnung::where('id', $rechnungspos->rechnungs_id)->first();
                 //Get abrechner
                 $abrechner = User::where('id', $rechnung->abrechner_id)->first();
@@ -106,9 +108,6 @@ class RechnungController extends Controller
             }
         }
 
-        //dd($user, $user_has_rechnungspos, $rechnungsposes);
-        //dd($rechnungsposes, $user_has_rechnungspos);
-        //dd($bills);
         return view('site/show', compact('user', 'bills'));
     }
 
@@ -133,13 +132,11 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for($i = 0;$i < count($user_has_rechnungspos);$i++)
-        {
+        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
             $rechnungspos = Rechnungspos::where('id', $user_has_rechnungspos[$i]->rechnungspos_id)->first();
             //Get rechnung
-            if(isset($rechnungspos))
-            {
+            if (isset($rechnungspos)) {
                 $rechnung = Rechnung::where('id', $rechnungspos->rechnungs_id)->first();
                 //Get abrechner
                 $abrechner = User::where('id', $rechnung->abrechner_id)->first();
