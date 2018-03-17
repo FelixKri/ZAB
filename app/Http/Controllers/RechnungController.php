@@ -152,4 +152,10 @@ class RechnungController extends Controller
         //dd($bills);
         return view('site/showArchive', compact('user', 'bills'));
     }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('bills/edit', compact('user'));
+    }
 }
