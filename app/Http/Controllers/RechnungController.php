@@ -48,14 +48,12 @@ class RechnungController extends Controller
 
     public function store()
     {
-        dd(request()->rechnungsposition);
         $rechnung = new Rechnung;
         $rechnung->reason = "Ausflug";
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
-        $i = 0;
 
-        foreach (request()->rechnungspositionen as $rechnungsposdata) {
+        foreach(request()->rechnungspositionen as $rechnungsposdata){
             $rechnungsposition = new Rechnungspos();
             $rechnungsposition->bezeichnung = $rechnungsposdata[0];
             $rechnungsposition->gesamtbetrag = 1000;
@@ -63,8 +61,7 @@ class RechnungController extends Controller
             $rechnungsposition->bezahlt = false;
             $rechnungsposition->save();
             $j = 0;
-
-            foreach ($rechnungsposdata[2] as $user_ids) {
+            foreach($rechnungsposdata[2] as $user_ids) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
                 $user_has_rechnungspos->user_id = (int)$user_ids;
                 $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
@@ -74,9 +71,8 @@ class RechnungController extends Controller
                 $j++;
             }
         }
-
         return response()->json([
-            "success" => "success"
+            "success" => "oida es geht"
         ]);
 
     }
