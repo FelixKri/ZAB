@@ -11,4 +11,8 @@ class user_has_rechnungspos extends Model
     ];
 
 
+    public function rechnungspos(){
+        return $this->belongsTo(rechnungspos::class);
+    }
+
 }
