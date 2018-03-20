@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Klasse;
+use App\Rechnung;
+use App\Rechnungspos;
 use App\User;
 use App\user_has_rechnungspos;
-use App\Rechnungspos;
-use App\Rechnung;
+use Illuminate\Support\Facades\Auth;
 
 class RechnungController extends Controller
 {
@@ -17,23 +16,25 @@ class RechnungController extends Controller
         $this->middleware('auth');
     }
 
-    public function create(){
-        if(Auth::user()->canWrite == true){
+    public function create()
+    {
+        if (Auth::user()->canWrite == true) {
             $user = Auth::user();
             $klassen = Klasse::all();
-            return view('bills.create', compact('user','klassen'));
-        }
-        else{
+            return view('bills.create', compact('user', 'klassen'));
+        } else {
             return redirect('/');
         }
     }
-    public function fill(){
+
+    public function fill()
+    {
         //dd(request()->all());
         $user = Auth::user();
         //Klassennamen aus dem request extrahieren
         $klassen_arr = explode("|", request()->classes);
         //id's der ausgewählten klassen filtern;
-        $ids = Klasse::whereIn('name',$klassen_arr)->pluck('id');
+        $ids = Klasse::whereIn('name', $klassen_arr)->pluck('id');
 
         //schüler suchen welche den gefilterten Klassen angehören
         $schueler = User::whereIn('klasse_id', $ids)->get();
@@ -44,13 +45,13 @@ class RechnungController extends Controller
         ]);
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
-    public function store(){
-        dd(request()->rechnungsposition);
+
+    public function store()
+    {
         $rechnung = new Rechnung;
         $rechnung->reason = "Ausflug";
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
-        $i = 0;
 
         foreach(request()->rechnungspositionen as $rechnungsposdata){
             $rechnungsposition = new Rechnungspos();
@@ -60,7 +61,6 @@ class RechnungController extends Controller
             $rechnungsposition->bezahlt = false;
             $rechnungsposition->save();
             $j = 0;
-
             foreach($rechnungsposdata[2] as $user_ids) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
                 $user_has_rechnungspos->user_id = (int)$user_ids;
@@ -71,14 +71,14 @@ class RechnungController extends Controller
                 $j++;
             }
         }
-
         return response()->json([
-            "success" => "success"
+            "success" => "oida es geht"
         ]);
 
     }
 
-    public function show(){
+    public function show()
+    {
         $user = Auth::user();
 
         $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => true];
@@ -86,8 +86,7 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for($i = 0;$i < count($user_has_rechnungspos);$i++)
-        {
+        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
             $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
             //dd($rechnungspos);
@@ -127,8 +126,7 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for($i = 0;$i < count($user_has_rechnungspos);$i++)
-        {
+        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
             $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
             //dd($rechnungspos);
@@ -143,6 +141,7 @@ class RechnungController extends Controller
             $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
             $bills[$i]["abrechnerVor"] = $abrechner->vorName;
             $bills[$i]["abrechnerNach"] = $abrechner->nachName;
+
         }
 
         return view('site/showArchive', compact('user', 'bills'));
