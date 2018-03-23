@@ -621,7 +621,11 @@ module.exports = function normalizeComponent (
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
+<<<<<<< HEAD
+ * @version 1.14.1
+=======
  * @version 1.12.9
+>>>>>>> d4ec0ac3b531b3701fda82595787ba32dbb93519
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *

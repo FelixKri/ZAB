@@ -10,8 +10,8 @@ class Rechnungspos extends Model
         'bezeichnung', 'gesamtbetrag', 'bezahlt', 'rechnungs_id'
     ];
 
-    public function rechnungskopf(){
-        return $this->belongsTo(Rechnung::class);
+    public function rechnung(){
+        return $this->belongsTo(Rechnung::class, 'rechnungs_id');
     }
 
     public function user_has_rechnungspos(){

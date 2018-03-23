@@ -94,8 +94,13 @@ $(".pay").on('click', function () {
         success: function success(response) {
             //response["rechnungsposid"]
 
+<<<<<<< HEAD
+            $("#" + response['rechnungsposid']).fadeOut('slow');
+            //console.log(response);
+=======
             $('#' + response['rechnungsposid']).fadeOut('slow');
 
+>>>>>>> d4ec0ac3b531b3701fda82595787ba32dbb93519
             //alert("Success");
         },
         error: function error(response) {

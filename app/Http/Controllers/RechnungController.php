@@ -81,30 +81,29 @@ class RechnungController extends Controller
     {
         $user = Auth::user();
 
-        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => false];
+        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => true];
         $user_has_rechnungspos = user_has_rechnungspos::where($matchThese)->get();
-        //dd($user_has_rechnungspos);
 
         $bills = array();
 
         for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
-            $rechnungspos = Rechnungspos::where('id', $user_has_rechnungspos[$i]->rechnungspos_id)->first();
+            $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
+            //dd($rechnungspos);
             //Get rechnung
-            if (isset($rechnungspos)) {
-                $rechnung = Rechnung::where('id', $rechnungspos->rechnungs_id)->first();
-                //Get abrechner
-                $abrechner = User::where('id', $rechnung->abrechner_id)->first();
-                //Fill bills
-                $bills[$i]["name"] = $rechnungspos->bezeichnung;
-                $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
-                $bills[$i]["abrechnerVor"] = $abrechner->vorName;
-                $bills[$i]["abrechnerNach"] = $abrechner->nachName;
-                $bills[$i]["rechnungsposid"] = $rechnungspos->id;
-            }
+            $rechnung = $rechnungspos->rechnung;
+            
+            //Get abrechner
+            $abrechner = $rechnung->abrechner;
+
+            //Fill bills
+            $bills[$i]["name"] = $rechnungspos->bezeichnung;
+            $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
+            $bills[$i]["abrechnerVor"] = $abrechner->vorName;
+            $bills[$i]["abrechnerNach"] = $abrechner->nachName;
         }
 
-        return view('site/show', compact('user', 'bills'));
+        return view('site/showArchive', compact('user', 'bills'));
     }
 
     public function pay()
@@ -122,30 +121,29 @@ class RechnungController extends Controller
     {
         $user = Auth::user();
 
-        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => true];
+        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => false];
         $user_has_rechnungspos = user_has_rechnungspos::where($matchThese)->get();
-        //dd($user_has_rechnungspos);
 
         $bills = array();
 
         for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
             //Get rechnungspos
-            $rechnungspos = Rechnungspos::where('id', $user_has_rechnungspos[$i]->rechnungspos_id)->first();
+            $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
+            //dd($rechnungspos);
             //Get rechnung
-            if (isset($rechnungspos)) {
-                $rechnung = Rechnung::where('id', $rechnungspos->rechnungs_id)->first();
-                //Get abrechner
-                $abrechner = User::where('id', $rechnung->abrechner_id)->first();
-                //Fill bills
-                $bills[$i]["name"] = $rechnungspos->bezeichnung;
-                $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
-                $bills[$i]["abrechnerVor"] = $abrechner->vorName;
-                $bills[$i]["abrechnerNach"] = $abrechner->nachName;
-            }
+            $rechnung = $rechnungspos->rechnung;
+            
+            //Get abrechner
+            $abrechner = $rechnung->abrechner;
+
+            //Fill bills
+            $bills[$i]["name"] = $rechnungspos->bezeichnung;
+            $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
+            $bills[$i]["abrechnerVor"] = $abrechner->vorName;
+            $bills[$i]["abrechnerNach"] = $abrechner->nachName;
+
         }
-        //dd($user, $user_has_rechnungspos, $rechnungsposes);
-        //dd($rechnungsposes, $user_has_rechnungspos);
-        //dd($bills);
+
         return view('site/showArchive', compact('user', 'bills'));
     }
 
