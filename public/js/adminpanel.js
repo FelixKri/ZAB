@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 58);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -47487,14 +47487,26 @@ if (false) {
 }
 
 /***/ }),
-/* 46 */
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(47);
+module.exports = __webpack_require__(59);
 
 
 /***/ }),
-/* 47 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -47508,308 +47520,53 @@ __webpack_require__(14);
 
 window.Vue = __webpack_require__(37);
 
-var data = { students: null, data: null, counter: [], id: 1 };
+var data = { counter: ["x"] };
+
 /**
-* Next, we will create a fresh Vue application instance and attach it to
-* the page. Then, you may begin adding components to this application
-* or customize the JavaScript scaffolding to fit your unique needs.
-*/
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-Vue.component('studentform', __webpack_require__(48));
-Vue.component('studentlist', __webpack_require__(51));
 Vue.component('studentregister', __webpack_require__(41));
+Vue.component('studentregisterinputs', __webpack_require__(60));
+console.log("adminpanel.js mounted");
 
-$(".classes").on('click', function () {
-    var checkbox_value = "";
-    $(":checkbox").each(function () {
-        var ischecked = $(this).is(":checked");
-        if (ischecked) {
-            checkbox_value += $(this).val() + "|";
-        }
-    });
-    $.ajax({
-
-        type: "POST",
-        url: "/bill/new",
-        data: {
-            '_token': $('input[name=_token]').val(),
-            'classes': checkbox_value
-        },
-
-        success: function success(response) {
-            data.students = response['schueler'];
-            init();
-        }
-    });
-});
-
-$(".addschueler").on('click', function () {
-    init();
-});
+init();
 
 function init() {
+
     var vm = new Vue({
+
         el: '#vue',
         data: data,
         methods: {},
         mounted: function mounted() {
-            console.log('mounted');
+            console.log('SchuelerReg Mounted');
         }
     });
 }
 
 /***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(49)
-/* template */
-var __vue_template__ = __webpack_require__(50)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\StudentForm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d10b7710", Component.options)
-  } else {
-    hotAPI.reload("data-v-d10b7710", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 49 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['id'],
-    data: function data() {
-        return {
-            csrf: "",
-            root: this.$parent
-        };
-    },
-
-    methods: {
-        add: function add() {
-            this.root.counter.push("x");
-        },
-        sendajax: function sendajax() {
-            var numItems = $('.rechnungsposname').length; //Ermittlung Anzahl von Rechnungspositionen
-            console.log("Anzahl der Rechnungspostionen: " + numItems);
-            var rechnungspos_name = void 0;
-            var values = [];
-            var user_ids = [];
-            var rechnungspositionen = [];
-            var rechnungsgrund = $("#grund").val(); //Ermittlung des Abrechnungsgrundes
-            console.log("Rechnungsgrund: " + rechnungsgrund);
-            /* For Loop zum Sammeln der Daten der verschiedenen Rechnungspositionen */
-            for (var id = 1; id <= numItems; id++) {
-                console.log("Current ID: " + id);
-                rechnungspos_name = $("#rechnungsposname_" + id).val();
-                console.log("rechnungspos name: " + rechnungspos_name);
-                $("#rechnungspos_" + id + " .rechnungspos_betrag").each(function () {
-                    console.log("IM IN");
-                    values.push($(this).val());
-                    user_ids.push($(this).attr("name").split('_')[0]);
-                });
-                if (values.length === 0 || user_ids.length === 0) {
-                    console.log("Something is missing");
-                }
-                console.log("User ids: " + user_ids);
-                console.log("Values: " + values);
-                rechnungspositionen.push([rechnungspos_name, values, user_ids]);
-                values = [];
-                user_ids = [];
-            }
-            console.log(rechnungspositionen);
-            /* Ajax Request and Backend API */
-            $.ajax({
-                type: "POST",
-                url: "/bill/store",
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'rechnungsgrund': rechnungsgrund,
-                    'rechnungspositionen': rechnungspositionen
-                },
-                success: function success(response) {
-                    console.log("AJAX response gesendet");
-                }
-            });
-        }
-    },
-    mounted: function mounted() {
-        this.csrf = window.Laravel.csrfToken;
-    }
-});
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "jumbotron text-dark" }, [
-    _c(
-      "form",
-      { attrs: { action: "/bill/save", method: "post" } },
-      [
-        _c("input", {
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf }
-        }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("h4", [_vm._v("Rechnungspositionen:")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "btn btn-primary btn-small",
-            attrs: {
-              type: "button",
-              id: "addRechnungspos",
-              name: "addRechnungspos",
-              value: "Rechnungsposition Hinzufügen"
-            },
-            on: { click: _vm.add }
-          })
-        ]),
-        _vm._v(" "),
-        _vm._l(this.root.counter, function(item) {
-          return _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("studentlist", { attrs: { id: _vm.root.id } }),
-              _vm._v(" "),
-              _c("hr")
-            ],
-            1
-          )
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-primary",
-          attrs: { type: "button", id: "send", value: "Abrechnen" },
-          on: {
-            click: function($event) {
-              _vm.sendajax()
-            }
-          }
-        })
-      ],
-      2
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "grund" } }, [_vm._v("Begründung:")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        staticStyle: { width: "50%" },
-        attrs: {
-          type: "text",
-          id: "grund",
-          placeholder: "Grund der Abrechnung",
-          name: "grund"
-        }
-      })
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-d10b7710", module.exports)
-  }
-}
-
-/***/ }),
-/* 51 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(52)
+  __webpack_require__(61)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(54)
+var __vue_script__ = __webpack_require__(63)
 /* template */
-var __vue_template__ = __webpack_require__(55)
+var __vue_template__ = __webpack_require__(64)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6919295c"
+var __vue_scopeId__ = "data-v-15dfea00"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -47820,7 +47577,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\StudentList.vue"
+Component.options.__file = "resources\\assets\\js\\components\\StudentRegisterinputs.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47829,9 +47586,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6919295c", Component.options)
+    hotAPI.createRecord("data-v-15dfea00", Component.options)
   } else {
-    hotAPI.reload("data-v-6919295c", Component.options)
+    hotAPI.reload("data-v-15dfea00", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47842,23 +47599,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(53);
+var content = __webpack_require__(62);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(13)("247c6754", content, false, {});
+var update = __webpack_require__(13)("d3d37ed8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6919295c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./StudentList.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6919295c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./StudentList.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-15dfea00\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./StudentRegisterinputs.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-15dfea00\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./StudentRegisterinputs.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -47868,7 +47625,7 @@ if(false) {
 }
 
 /***/ }),
-/* 53 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(12)(false);
@@ -47876,13 +47633,13 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 54 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47910,67 +47667,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['id'],
-    data: function data() {
-        return {
-            id2: this.$root.id,
-            root: this.$root
-        };
-    },
-    mounted: function mounted() {
-        this.root.id = this.id + 1;
-    },
-
-    name: "student-list"
+    name: "student-registerinputs"
 });
 
 /***/ }),
-/* 55 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { attrs: { id: "rechnungspos_" + _vm.id2 } }, [
-      _c("input", {
-        staticClass: "form-control form-control-sm rechnungsposname",
-        staticStyle: { width: "55%" },
-        attrs: {
-          type: "text",
-          id: "rechnungsposname_" + _vm.id2,
-          placeholder: "Name der Position"
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "table",
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._l(this.$parent.$parent.students, function(student) {
-            return _c("tr", [
-              _c("td", { staticStyle: { width: "60%" } }, [
-                _vm._v(
-                  _vm._s(student["vorName"]) + " " + _vm._s(student["nachName"])
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("input", {
-                  staticClass:
-                    "form-control form-control-sm rechnungspos_betrag",
-                  attrs: { type: "number", name: student["id"] + "_" + _vm.id2 }
-                })
-              ])
-            ])
-          })
-        ],
-        2
-      )
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
@@ -47978,9 +47686,60 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("th", [_vm._v("Name:")]),
+      _c("td", [
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            placeholder: "VorName des Schülers",
+            name: "vorName"
+          }
+        })
+      ]),
       _vm._v(" "),
-      _c("th", [_vm._v("Betrag:")])
+      _c("td", [
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            placeholder: "NachName des Schülers",
+            name: "nachName"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "text",
+            placeholder: "Klasse des Schülers",
+            name: "klasse"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "email",
+            placeholder: "E-Mail des Schülers",
+            name: "eMail"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("td", [
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: {
+            type: "password",
+            placeholder: "Passwort des Schülers",
+            name: "password"
+          }
+        })
+      ])
     ])
   }
 ]
@@ -47989,7 +47748,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6919295c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-15dfea00", module.exports)
   }
 }
 

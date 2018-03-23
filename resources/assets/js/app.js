@@ -18,6 +18,7 @@ let data = {students: null, data: null, counter: [], id: 1};
 
 Vue.component('studentform', require('./components/StudentForm.vue'));
 Vue.component('studentlist', require('./components/StudentList.vue'));
+Vue.component('studentregister',require('./components/StudentRegister'));
 
 
 
@@ -40,9 +41,13 @@ $(".classes").on('click', function () {
 
         success: function (response) {
             data.students = response['schueler'];
-            init()
+            init();
         }
     });
+});
+
+$(".addschueler").on('click', function () {
+    init();
 });
 
 function init() {
