@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 53:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(54);
+module.exports = __webpack_require__(52);
 
 
 /***/ }),
 
-/***/ 54:
+/***/ 52:
 /***/ (function(module, exports) {
 
 $(".pay").on('click', function () {
@@ -94,13 +94,8 @@ $(".pay").on('click', function () {
         success: function success(response) {
             //response["rechnungsposid"]
 
-<<<<<<< HEAD
             $("#" + response['rechnungsposid']).fadeOut('slow');
-            //console.log(response);
-=======
-            $('#' + response['rechnungsposid']).fadeOut('slow');
-
->>>>>>> d4ec0ac3b531b3701fda82595787ba32dbb93519
+            console.log(response);
             //alert("Success");
         },
         error: function error(response) {

@@ -81,7 +81,7 @@ class RechnungController extends Controller
     {
         $user = Auth::user();
 
-        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => true];
+        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => false];
         $user_has_rechnungspos = user_has_rechnungspos::where($matchThese)->get();
 
         $bills = array();
@@ -96,14 +96,23 @@ class RechnungController extends Controller
             //Get abrechner
             $abrechner = $rechnung->abrechner;
 
+            $rechnungsid = $rechnung->id;
+
+            if(isset($bills[$rechnungsid]))
+                $count = count($bills[$rechnungsid]) + 1;
+            else
+                $count = 1;
+
             //Fill bills
-            $bills[$i]["name"] = $rechnungspos->bezeichnung;
-            $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
-            $bills[$i]["abrechnerVor"] = $abrechner->vorName;
-            $bills[$i]["abrechnerNach"] = $abrechner->nachName;
+            $bills[$rechnungsid][0] = $rechnung->reason;
+            $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
+            $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
+            $bills[$rechnungsid][$count]["abrechnerVor"] = $abrechner->vorName;
+            $bills[$rechnungsid][$count]["abrechnerNach"] = $abrechner->nachName;
+            $bills[$rechnungsid][$count]["rechnungsposid"] = $rechnungspos->id;
         }
 
-        return view('site/showArchive', compact('user', 'bills'));
+        return view('site/show', compact('user', 'bills'));
     }
 
     public function pay()
@@ -121,7 +130,7 @@ class RechnungController extends Controller
     {
         $user = Auth::user();
 
-        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => false];
+        $matchThese = ['user_id' => Auth::user()->id, 'bezahlt' => true];
         $user_has_rechnungspos = user_has_rechnungspos::where($matchThese)->get();
 
         $bills = array();

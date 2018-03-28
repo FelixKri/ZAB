@@ -35,6 +35,12 @@ class CreateRechnungsposTable extends Migration
             'rechnungs_id' => 1
         ]);
         Rechnungspos::create([
+            'bezeichnung' => 'Test Rechnungspos 1 in 1', 
+            'gesamtbetrag' => 200, 
+            'bezahlt' => false,
+            'rechnungs_id' => 1
+        ]);
+        Rechnungspos::create([
             'bezeichnung' => 'Test Rechnungspos 2', 
             'gesamtbetrag' => 300, 
             'bezahlt' => false,
