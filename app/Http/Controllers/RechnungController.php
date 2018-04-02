@@ -161,4 +161,45 @@ class RechnungController extends Controller
         $user = Auth::user();
         return view('bills/edit', compact('user'));
     }
+
+    public function autocomplete()
+    {
+        $term = request()->term;
+        $user = User::where('nachName','LIKE', '%'.$term.'%')->get();
+        if(count($user)==0){
+            $searchResult = ["Keine Treffer"];
+            return $searchResult;
+        }else{
+            foreach($user as $key => $value){
+                $searchResult[] = $value->vorName." ".$value->nachName;
+            }
+        }
+        return $searchResult;
+        /*$availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+
+        return $availableTags; */
+    }
 }

@@ -6,11 +6,11 @@
         };
     </script>
     <script src="{{ mix('js/app.js') }}"></script>
-    <script src="{{ mix('js/typeahead.js') }}"></script>
     <script src="{{ mix('js/autofill.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 @endpush
 @section('headers')
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 @endsection
 @section('content')
     <div class="container">

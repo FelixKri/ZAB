@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="addStField" id="addStField" class="form-control form-control-sm typeahead" placeholder="Schüler hinzufügen">
+                        <input type="text" name="addStField" id="addStField" class="form-control form-control-sm typeahead" placeholder="Schüler hinzufügen" @focus="autocomplete()">
                     </td>
                 </tr>
             </table>
@@ -45,6 +45,13 @@
         methods: {
             removeStudent: function ($id) {
                 $("#" + $id).remove();
+            },
+
+            autocomplete: function() {
+                $( "#addStField" ).autocomplete({
+                    source: "http://localhost:8000/bill/autocomplete"
+                });
+                console.log("oida des geht");
             },
         },
         mounted() {
