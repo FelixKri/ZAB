@@ -17,7 +17,7 @@ $(".pay").on('click', function () {
             //response["rechnungsposid"]
 
             $("#" + response['rechnungsposid']).fadeOut('slow');
-            //console.log(response);
+            console.log(response);
             //alert("Success");
         },
         error: function(response){
