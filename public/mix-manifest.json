@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/adminpanel.js": "/js/adminpanel.js",
-    "/js/payBill.js": "/js/payBill.js"
+    "/js/typeahead.js": "/js/typeahead.js",
+    "/js/payBill.js": "/js/payBill.js",
+    "/js/autofill.js": "/js/autofill.js"
 }

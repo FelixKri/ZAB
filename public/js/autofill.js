@@ -60,48 +60,44 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 67);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 56:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(57);
+module.exports = __webpack_require__(68);
 
 
 /***/ }),
 
-/***/ 57:
+/***/ 68:
 /***/ (function(module, exports) {
 
-$(".pay").on('click', function () {
+$(document).on('ready page:load', function () {
+    // Defining the local dataset
+    var cars = ['Audi', 'BMW', 'Bugatti', 'Ferrari', 'Ford', 'Lamborghini', 'Mercedes Benz', 'Porsche', 'Rolls-Royce', 'Volkswagen'];
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    // Constructing the suggestion engine
+    cars = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: cars
+
     });
 
-    $.ajax({
-        type: "POST",
-        url: "/",
-        data: {
-            '_token': $('input[name=_token]').val(),
-            'rechnungsposid': this.name
-        },
-        success: function success(response) {
-            //response["rechnungsposid"]
+    console.log("bloodhound geladen");
 
-            $("#" + response['rechnungsposid']).fadeOut('slow');
-            //console.log(response);
-            //alert("Success");
-        },
-        error: function error(response) {
-            alert("Error");
-            console.log(response);
-        }
+    // Initializing the typeahead
+    $('.typeahead').typeahead({
+        hint: true,
+        highlight: true, /* Enable substring highlighting */
+        minLength: 1 /* Specify minimum characters required for showing suggestions */
+    }, {
+        name: 'cars',
+        source: cars
     });
 });
 

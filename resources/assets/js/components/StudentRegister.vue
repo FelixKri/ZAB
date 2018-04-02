@@ -17,8 +17,8 @@
                 Passwort
             </th>
         </tr> <!-- COL Namen -->
-        <studentregisterinputs v-for="item in this.root.counter"></studentregisterinputs>
-        <input type="button" id="addst" class="btn btn-primary" value="Schüler hinzufügen" @click="add()">
+        <studentregisterinputs v-for="item in this.root.counter" :key="item.id"></studentregisterinputs>
+        <input type="button" id="addst" class="btn btn-primary" value="Schüler hinzufügen" @click="add()" >
     </table>
 </template>
 
