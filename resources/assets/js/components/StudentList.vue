@@ -19,13 +19,14 @@
                                :id="student['id']+'_' + id2">
                     </td>
                     <td>
-                        <input type="button" value="X" class="btn btn-danger btn-sm" :id="student['id']+'_' + id2"
+                        <input type="button" value="X" class="btn btn-outline-danger btn-sm" :id="student['id']+'_' + id2"
                                @click="removeStudent(student['id']+'_' + id2)">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="addStField" id="addStField" class="form-control form-control-sm typeahead" placeholder="Schüler hinzufügen" @focus="autocomplete()">
+                        <input type="text" name="addStField" id="addStField" class="form-control form-control-sm typeahead"
+                               placeholder="Schüler hinzufügen" @focus="autocomplete()" @keyup.enter="addSt()">
                     </td>
                 </tr>
             </table>
@@ -51,8 +52,21 @@
                 $( "#addStField" ).autocomplete({
                     source: "http://localhost:8000/bill/autocomplete"
                 });
-                console.log("oida des geht");
             },
+
+            addSt: function(){
+                let studentInfo = $("#addStField").val(); //Student Info
+                studentInfo = studentInfo.split("|");
+                let student = [];
+                student['id'] = studentInfo[0].trim();
+                student['vorName'] = studentInfo[1].split(" ")[1];
+                student['nachName'] = studentInfo[1].split(" ")[2];
+                student['klasse'] = studentInfo[2].trim();
+                //alert(student['vorName']);
+                this.$parent.$parent.students.push(student);
+
+                $("#addStField").val(" ");
+            }
         },
         mounted() {
             this.root.id = this.id + 1;

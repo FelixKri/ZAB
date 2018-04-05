@@ -39,9 +39,17 @@ class RechnungController extends Controller
         //schüler suchen welche den gefilterten Klassen angehören
         $schueler = User::whereIn('klasse_id', $ids)->get();
 
+        $schuelerdata = array();
+        for($i = 0; $i<count($schueler); $i++){
+            $schuelerdata[$i]['vorName'] = $schueler[$i]->vorName;
+            $schuelerdata[$i]['nachName'] = $schueler[$i]->nachName;
+            $schuelerdata[$i]['klasse'] = $schueler[$i]->klasse->name;
+            $schuelerdata[$i]['id'] = $schueler[$i]->id;
+        }
+
         return response()->json([
             //request()->all(),
-            "schueler" => $schueler,
+            "schueler" => $schuelerdata,
         ]);
         //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
     }
@@ -171,35 +179,13 @@ class RechnungController extends Controller
             return $searchResult;
         }else{
             foreach($user as $key => $value){
-                $searchResult[] = $value->vorName." ".$value->nachName;
+                $searchResult[] = $value->id. " | " . $value->vorName." ".$value->nachName . " | " . $value->klasse->name;
             }
         }
         return $searchResult;
-        /*$availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
+    }
 
-        return $availableTags; */
+    public function addStudent(){
+        dd(request()->all());
     }
 }

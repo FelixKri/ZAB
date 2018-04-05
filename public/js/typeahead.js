@@ -76,7 +76,7 @@ module.exports = __webpack_require__(66);
 /***/ 66:
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'F:\\Desktop\\ZAB\\resources\\assets\\js\\typeahead.js'");
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\Users\\Felix\\Desktop\\Abrechnung\\resources\\assets\\js\\typeahead.js'\n    at Error (native)");
 
 /***/ })
 

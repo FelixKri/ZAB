@@ -73,6 +73,7 @@
                         'rechnungsgrund': rechnungsgrund,
                         'rechnungspositionen': rechnungspositionen,
                     },
+
                     success: function success(response) {
                         console.log("AJAX response gesendet");
                     }

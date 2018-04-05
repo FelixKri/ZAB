@@ -621,7 +621,7 @@ module.exports = function normalizeComponent (
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.13.0
+ * @version 1.12.9
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -47687,6 +47687,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'rechnungsgrund': rechnungsgrund,
                     'rechnungspositionen': rechnungspositionen
                 },
+
                 success: function success(response) {
                     console.log("AJAX response gesendet");
                 }
@@ -47876,7 +47877,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47887,6 +47888,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -47941,7 +47943,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             $("#addStField").autocomplete({
                 source: "http://localhost:8000/bill/autocomplete"
             });
-            console.log("oida des geht");
+        },
+
+        addSt: function addSt() {
+            var studentInfo = $("#addStField").val(); //Student Info
+            studentInfo = studentInfo.split("|");
+            var student = [];
+            student['id'] = studentInfo[0].trim();
+            student['vorName'] = studentInfo[1].split(" ")[1];
+            student['nachName'] = studentInfo[1].split(" ")[2];
+            student['klasse'] = studentInfo[2].trim();
+            //alert(student['vorName']);
+            this.$parent.$parent.students.push(student);
+
+            $("#addStField").val(" ");
         }
     },
     mounted: function mounted() {
@@ -48010,7 +48025,7 @@ var render = function() {
               _vm._v(" "),
               _c("td", [
                 _c("input", {
-                  staticClass: "btn btn-danger btn-sm",
+                  staticClass: "btn btn-outline-danger btn-sm",
                   attrs: {
                     type: "button",
                     value: "X",
@@ -48039,6 +48054,15 @@ var render = function() {
                 on: {
                   focus: function($event) {
                     _vm.autocomplete()
+                  },
+                  keyup: function($event) {
+                    if (
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key)
+                    ) {
+                      return null
+                    }
+                    _vm.addSt()
                   }
                 }
               })
