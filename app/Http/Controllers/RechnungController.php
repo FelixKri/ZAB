@@ -13,45 +13,53 @@ class RechnungController extends Controller
 {
     public function __construct()
     {
+
         $this->middleware('auth');
+
     }
 
     public function create()
     {
         if (Auth::user()->canWrite == true) {
+
             $user = Auth::user();
             $klassen = Klasse::all();
+
             return view('bills.create', compact('user', 'klassen'));
         } else {
+
             return redirect('/');
+
         }
     }
 
     public function fill()
     {
-        //dd(request()->all());
         $user = Auth::user();
-        //Klassennamen aus dem request extrahieren
+
         $klassen_arr = explode("|", request()->classes);
-        //id's der ausgewählten klassen filtern;
+
         $ids = Klasse::whereIn('name', $klassen_arr)->pluck('id');
 
-        //schüler suchen welche den gefilterten Klassen angehören
         $schueler = User::whereIn('klasse_id', $ids)->get();
 
         $schuelerdata = array();
-        for($i = 0; $i<count($schueler); $i++){
+
+        for ($i = 0; $i < count($schueler); $i++) {
+
             $schuelerdata[$i]['vorName'] = $schueler[$i]->vorName;
             $schuelerdata[$i]['nachName'] = $schueler[$i]->nachName;
             $schuelerdata[$i]['klasse'] = $schueler[$i]->klasse->name;
             $schuelerdata[$i]['id'] = $schueler[$i]->id;
+
         }
 
         return response()->json([
-            //request()->all(),
+
             "schueler" => $schuelerdata,
+
         ]);
-        //return view('bills.fill',compact('user','schueler', 'klassen_arr'));
+
     }
 
     public function store()
@@ -61,7 +69,7 @@ class RechnungController extends Controller
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
 
-        foreach(request()->rechnungspositionen as $rechnungsposdata){
+        foreach (request()->rechnungspositionen as $rechnungsposdata) {
             $rechnungsposition = new Rechnungspos();
             $rechnungsposition->bezeichnung = $rechnungsposdata[0];
             $rechnungsposition->gesamtbetrag = 1000;
@@ -69,7 +77,7 @@ class RechnungController extends Controller
             $rechnungsposition->bezahlt = false;
             $rechnungsposition->save();
             $j = 0;
-            foreach($rechnungsposdata[2] as $user_ids) {
+            foreach ($rechnungsposdata[2] as $user_ids) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
                 $user_has_rechnungspos->user_id = (int)$user_ids;
                 $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
@@ -95,29 +103,24 @@ class RechnungController extends Controller
         $bills = array();
 
         for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
-            //Get rechnungspos
-            $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
-            //dd($rechnungspos);
-            //Get rechnung
-            $rechnung = $rechnungspos->rechnung;
-            
-            //Get abrechner
-            $abrechner = $rechnung->abrechner;
 
+            $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
+            $rechnung = $rechnungspos->rechnung;
+            $abrechner = $rechnung->abrechner;
             $rechnungsid = $rechnung->id;
 
-            if(isset($bills[$rechnungsid]))
+            if (isset($bills[$rechnungsid]))
                 $count = count($bills[$rechnungsid]) + 1;
             else
                 $count = 1;
 
-            //Fill bills
             $bills[$rechnungsid][0] = $rechnung->reason;
             $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
             $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
             $bills[$rechnungsid][$count]["abrechnerVor"] = $abrechner->vorName;
             $bills[$rechnungsid][$count]["abrechnerNach"] = $abrechner->nachName;
             $bills[$rechnungsid][$count]["rechnungsposid"] = $rechnungspos->id;
+
         }
 
         return view('site/show', compact('user', 'bills'));
@@ -144,16 +147,12 @@ class RechnungController extends Controller
         $bills = array();
 
         for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
-            //Get rechnungspos
+
             $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
-            //dd($rechnungspos);
-            //Get rechnung
             $rechnung = $rechnungspos->rechnung;
-            
-            //Get abrechner
+
             $abrechner = $rechnung->abrechner;
 
-            //Fill bills
             $bills[$i]["name"] = $rechnungspos->bezeichnung;
             $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
             $bills[$i]["abrechnerVor"] = $abrechner->vorName;
@@ -162,30 +161,35 @@ class RechnungController extends Controller
         }
 
         return view('site/showArchive', compact('user', 'bills'));
+
     }
 
     public function edit()
     {
+
         $user = Auth::user();
         return view('bills/edit', compact('user'));
+
     }
 
     public function autocomplete()
     {
         $term = request()->term;
-        $user = User::where('nachName','LIKE', '%'.$term.'%')->get();
-        if(count($user)==0){
+        $user = User::where('nachName', 'LIKE', '%' . $term . '%')->get();
+
+        if (count($user) == 0) {
             $searchResult = ["Keine Treffer"];
             return $searchResult;
-        }else{
-            foreach($user as $key => $value){
-                $searchResult[] = $value->id. " | " . $value->vorName." ".$value->nachName . " | " . $value->klasse->name;
+        } else {
+            foreach ($user as $key => $value) {
+                $searchResult[] = $value->id . " | " . $value->vorName . " " . $value->nachName . " | " . $value->klasse->name;
             }
         }
         return $searchResult;
     }
 
-    public function addStudent(){
+    public function addStudent()
+    {
         dd(request()->all());
     }
 }
