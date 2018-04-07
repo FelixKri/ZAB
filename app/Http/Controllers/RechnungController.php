@@ -94,7 +94,7 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
+        for ($i = count($user_has_rechnungspos) - 1;$i >= 0; $i--) {
             //Get rechnungspos
             $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
             //dd($rechnungspos);
