@@ -14,8 +14,8 @@
 	<br>
     <h1>Offene Rechnungen:</h1>
     @foreach($bills as $bill)
-    <div class="jumbotron text-dark">
-    	<h2>Rechnung: {{$bill[0]}}</h2>
+    <div class="jumbotron text-dark" id="r{{$bill[0]}}">
+    	<h2>Rechnung: {{$bill[1]}}</h2>
 	    @foreach($bill as $billpos)
 	    	@if(isset($billpos['name']))
 		    <div class="jumbotron text-dark" id="{{$billpos['rechnungsposid']}}">

@@ -107,12 +107,13 @@ class RechnungController extends Controller
             $rechnungsid = $rechnung->id;
 
             if(isset($bills[$rechnungsid]))
-                $count = count($bills[$rechnungsid]) + 1;
+                $count = count($bills[$rechnungsid]) + 2;
             else
-                $count = 1;
+                $count = 2;
 
             //Fill bills
-            $bills[$rechnungsid][0] = $rechnung->reason;
+            $bills[$rechnungsid][0] = $rechnung->id;
+            $bills[$rechnungsid][1] = $rechnung->reason;
             $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
             $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
             $bills[$rechnungsid][$count]["abrechnerVor"] = $abrechner->vorName;
@@ -126,11 +127,27 @@ class RechnungController extends Controller
     public function pay()
     {
         $match = ['user_id' => Auth::user()->id, 'rechnungspos_id' => request()->rechnungsposid];
-        user_has_rechnungspos::where($match)
-            ->update(['bezahlt' => true]);
+        $user_has_rechnungspos = user_has_rechnungspos::where($match)->first();
+        $user_has_rechnungspos->update(['bezahlt' => true]);
+
+        $gesuchtrechnungsid = $user_has_rechnungspos->rechnungspos->rechnung->id;
+        $user_has_rechnungspos = Auth::user()->has_rechnungspos->where("bezahlt", false);
+
+        foreach($user_has_rechnungspos as $user_has_pos)
+        {
+            $rechnungsid = $user_has_pos->rechnungspos->rechnung->id;
+
+            if($rechnungsid == $gesuchtrechnungsid)
+            {
+                return response()->json([
+                    "rechnungsposid" => request()->rechnungsposid
+                ]);
+            }
+        }
 
         return response()->json([
-            "rechnungsposid" => request()->rechnungsposid
+            "rechnungsposid" => request()->rechnungsposid,
+            "rechnungsid" => $gesuchtrechnungsid
         ]);
     }
 

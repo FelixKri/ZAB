@@ -95,6 +95,11 @@ $(".pay").on('click', function () {
             //response["rechnungsposid"]
 
             $("#" + response['rechnungsposid']).fadeOut('slow');
+
+            if (typeof response['rechnungsid'] !== 'undefined') {
+                $("#r" + response['rechnungsid']).fadeOut('slow');
+            }
+
             console.log(response);
             //alert("Success");
         },

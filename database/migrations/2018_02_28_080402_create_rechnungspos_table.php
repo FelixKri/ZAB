@@ -29,13 +29,25 @@ class CreateRechnungsposTable extends Migration
     public function create_test_rechnungspos()
     {
         Rechnungspos::create([
-            'bezeichnung' => 'Test Rechnungspos 1', 
+            'bezeichnung' => 'Test Rechnungspos 1 in 1', 
             'gesamtbetrag' => 500, 
             'bezahlt' => false,
             'rechnungs_id' => 1
         ]);
         Rechnungspos::create([
-            'bezeichnung' => 'Test Rechnungspos 1 in 1', 
+            'bezeichnung' => 'Test Rechnungspos 2 in 1', 
+            'gesamtbetrag' => 200, 
+            'bezahlt' => false,
+            'rechnungs_id' => 1
+        ]);
+        Rechnungspos::create([
+            'bezeichnung' => 'Test Rechnungspos 3 in 1', 
+            'gesamtbetrag' => 200, 
+            'bezahlt' => false,
+            'rechnungs_id' => 1
+        ]);
+        Rechnungspos::create([
+            'bezeichnung' => 'Test Rechnungspos 4 in 1', 
             'gesamtbetrag' => 200, 
             'bezahlt' => false,
             'rechnungs_id' => 1
