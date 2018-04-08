@@ -175,7 +175,9 @@ class RechnungController extends Controller
     public function autocomplete()
     {
         $term = request()->term;
-        $user = User::where('nachName', 'LIKE', '%' . $term . '%')->get();
+        $user = User::where('nachName', 'LIKE', '%' . $term . '%')
+            ->orWhere('vorName', 'LIKE', '%' . $term . '%')
+            ->orWhere('id', 'LIKE', '%' . $term . '%')->get();
 
         if (count($user) == 0) {
             $searchResult = ["Keine Treffer"];
