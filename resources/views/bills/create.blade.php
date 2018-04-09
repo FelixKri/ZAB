@@ -29,4 +29,5 @@
         </form>
         <studentform :id="id" v-if="students != null && students.length > 0"></studentform>
     </div>
+    @include('layouts.errors')
 @endsection

@@ -64,12 +64,28 @@ class RechnungController extends Controller
 
     public function store()
     {
+        $this->validate(request(), [
+
+            'rechnungsgrund' => 'required|max:200',
+            'rechnungspositionen' => 'required|array',
+            'rechnungspositionen.*' => 'required|distinct',
+            'rechnungspositionen.*.*' => 'required',
+            'rechnungspositionen.*.0' => 'required|distinct',
+            'rechnungspositionen.*.1' => 'required|array|',
+            'rechnungspositionen.*.1.*' => 'required|numeric',
+            'rechnungspositionen.*.2' => 'required|array|',
+            'rechnungspositionen.*.2.*' => 'required|numeric',
+
+        ]);
+
+        //dd(request()->all());
         $rechnung = new Rechnung;
         $rechnung->reason = "Ausflug";
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
 
         foreach (request()->rechnungspositionen as $rechnungsposdata) {
+
             $rechnungsposition = new Rechnungspos();
             $rechnungsposition->bezeichnung = $rechnungsposdata[0];
             $rechnungsposition->gesamtbetrag = 1000;
@@ -77,9 +93,9 @@ class RechnungController extends Controller
             $rechnungsposition->bezahlt = false;
             $rechnungsposition->save();
             $j = 0;
-            foreach ($rechnungsposdata[2] as $user_ids) {
+            foreach ($rechnungsposdata[2] as $user_id) {
                 $user_has_rechnungspos = new user_has_rechnungspos();
-                $user_has_rechnungspos->user_id = (int)$user_ids;
+                $user_has_rechnungspos->user_id = (int)$user_id;
                 $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
                 $user_has_rechnungspos->bezahlt = false;
                 $user_has_rechnungspos->betrag = $rechnungsposdata[1][$j];
@@ -88,7 +104,7 @@ class RechnungController extends Controller
             }
         }
         return response()->json([
-            "success" => "oida es geht"
+            "success" => "Bill stored"
         ]);
 
     }
