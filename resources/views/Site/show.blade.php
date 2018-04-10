@@ -17,6 +17,9 @@
             <div class="card text-dark" id="r{{$bill[0]}}" style="margin-bottom: 8px;">
                 <div class="card-header">
                     <h2 class="card-title">{{$bill[1]}}</h2>
+                    <p class="card-subtitle mb-2 text-muted">
+                        Abrechner: {{$bill[1]}} {{$bill[2]}}
+                    </p>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -26,9 +29,6 @@
                                     <div class="text-dark" id="{{$billpos['rechnungsposid']}}">
                                         <h4 class="card-subtitle">Position: {{$billpos['name']}}</h4>
                                         <p class="card-text">Betrag: {{$billpos['betrag']}}€</p>
-
-                                        <p class="card-subtitle mb-2 text-muted">
-                                            Abrechner: {{$billpos['abrechnerVor']}} {{$billpos['abrechnerNach']}}</p>
                                         <form method="post">
                                             <input type="button" class="btn btn-primary pay" value="Bezahlen"
                                                    name="{{$billpos['rechnungsposid']}}">
