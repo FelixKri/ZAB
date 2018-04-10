@@ -4,7 +4,7 @@
     <div class="container">
         @include('layouts.navbar')
         <br>
-        <h1>Offene Rechnungen:</h1>
+        <h1>Bezahlte Rechnungen:</h1>
         @foreach($bills as $bill)
             <div class="card text-dark" id="r{{$bill[0]}}" style="margin-bottom: 8px;">
                 <div class="card-header">
