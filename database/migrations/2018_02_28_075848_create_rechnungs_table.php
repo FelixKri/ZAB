@@ -16,7 +16,7 @@ class CreateRechnungsTable extends Migration
     {
         Schema::create('rechnungs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reason');
+            $table->integer('reason_id');
             $table->integer('abrechner_id');
             $table->boolean('bezahlt')->default($value = false);
             $table->timestamps();
@@ -28,16 +28,16 @@ class CreateRechnungsTable extends Migration
     public function create_test_rechnung()
     {
         Rechnung::create([
-            'reason' => 'Test Rechnungskopf 1', 
+            'reason_id' => 1,
             'abrechner_id' => 1
         ]);
         Rechnung::create([
-            'reason' => 'Test Rechnungskopf 2', 
+            'reason_id' => 2,
             'abrechner_id' => 1
         ]);
         Rechnung::create([
-            'reason' => 'Test Rechnungskopf 3', 
-            'abrechner_id' => 2
+            'reason_id' => 3,
+            'abrechner_id' => 1
         ]);
     }
 

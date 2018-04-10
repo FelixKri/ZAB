@@ -47931,7 +47931,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47942,6 +47942,22 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48030,15 +48046,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { attrs: { id: "rechnungspos_" + _vm.id2 } }, [
-      _c("input", {
-        staticClass: "form-control form-control-sm rechnungsposname",
-        staticStyle: { width: "55%" },
-        attrs: {
-          type: "text",
-          id: "rechnungsposname_" + _vm.id2,
-          placeholder: "Name der Position"
-        }
-      }),
+      _c("table", { staticStyle: { width: "90%" } }, [
+        _c("tr", [
+          _c("td", [_c("span", [_vm._v(_vm._s(_vm.id2) + ".")])]),
+          _vm._v(" "),
+          _c("td", [
+            _c("input", {
+              staticClass: "form-control form-control-sm rechnungsposname",
+              staticStyle: { width: "55%" },
+              attrs: {
+                type: "text",
+                id: "rechnungsposname_" + _vm.id2,
+                placeholder: "Name der Position"
+              }
+            })
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "table",
@@ -48073,6 +48097,19 @@ var render = function() {
                     type: "number",
                     name: student["id"] + "_" + _vm.id2,
                     id: student["id"] + "_" + _vm.id2
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("input", {
+                  staticClass:
+                    "form-control form-control-sm rechnungspos_bemerkung",
+                  staticStyle: { width: "90%" },
+                  attrs: {
+                    type: "text",
+                    name: "bemerkung_" + student["id"] + "_" + _vm.id2,
+                    id: "bemerkung_" + student["id"] + "_" + _vm.id2
                   }
                 })
               ]),
@@ -48136,7 +48173,9 @@ var staticRenderFns = [
     return _c("tr", [
       _c("th", [_vm._v("Name:")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Betrag:")])
+      _c("th", [_vm._v("Betrag:")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Bemerkung:")])
     ])
   }
 ]

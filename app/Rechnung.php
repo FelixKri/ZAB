@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rechnung extends Model
 {
 	protected $fillable = [
-        'reason', 'abrechner_id'
+        'reason_id', 'abrechner_id'
     ];
 
     public function rechnungspos(){
@@ -15,5 +15,8 @@ class Rechnung extends Model
     }
     public function abrechner(){
         return $this->belongsTo(User::class);
+    }
+    public function grund(){
+        return $this->hasOne(Grund::class, "id");
     }
 }

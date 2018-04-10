@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Grund;
 use App\Klasse;
 use App\Rechnung;
 use App\Rechnungspos;
@@ -80,7 +81,16 @@ class RechnungController extends Controller
 
         //dd(request()->all());
         $rechnung = new Rechnung;
-        $rechnung->reason = "Ausflug";
+        $grundcheck = Grund::where('name', '=', request()->rechnungsgrund)->first();
+        if ($grundcheck === null) {
+            //Grund existiert noch nicht
+            $grund = new Grund;
+            $grund->name = request()->rechnungsgrund;
+            $grund->save();
+        }else{
+            $grund = $grundcheck;
+        }
+        $rechnung->reason_id = $grund->id;
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
 
@@ -133,7 +143,7 @@ class RechnungController extends Controller
                 $count = 2;
 
             $bills[$rechnungsid][0] = $rechnung->id;
-            $bills[$rechnungsid][1] = $rechnung->reason;
+            $bills[$rechnungsid][1] = $rechnung->grund->name;
             $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
             $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
             $bills[$rechnungsid][$count]["abrechnerVor"] = $abrechner->vorName;

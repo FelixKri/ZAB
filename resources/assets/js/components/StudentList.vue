@@ -2,12 +2,23 @@
     <!-- ID2 ist die Id der Rechnungsposition, startet immer mit 1 -->
     <div>
         <div :id="'rechnungspos_'+id2">
-            <input type="text" :id="'rechnungsposname_' + id2" placeholder="Name der Position"
-                   class="form-control form-control-sm rechnungsposname" style="width: 55%;">
+            <table style="width:90%;">
+                <tr>
+                    <td>
+                        <span>{{id2}}.</span>
+                    </td>
+                    <td>
+                        <input type="text" :id="'rechnungsposname_' + id2" placeholder="Name der Position"
+                               class="form-control form-control-sm rechnungsposname" style="width: 55%;">
+                    </td>
+                </tr>
+            </table>
+
             <table>
                 <tr>
                     <th>Name:</th>
                     <th>Betrag:</th>
+                    <th>Bemerkung:</th>
                 </tr>
                 <tr v-for="student in this.$parent.$parent.students" :id="student['id']+'_' + id2">
                     <td style="width: 60%;" :id="student['id']+'_' + id2">
@@ -17,6 +28,11 @@
                         <input type="number" :name="student['id']+'_' + id2"
                                class="form-control form-control-sm rechnungspos_betrag" style="width: 90%;"
                                :id="student['id']+'_' + id2">
+                    </td>
+                    <td>
+                        <input type="text" :name="'bemerkung_'+student['id']+'_' + id2"
+                               class="form-control form-control-sm rechnungspos_bemerkung" style="width: 90%;"
+                               :id="'bemerkung_'+student['id']+'_' + id2">
                     </td>
                     <td>
                         <input type="button" value="X" class="btn btn-outline-danger btn-sm" :id="student['id']+'_' + id2"
