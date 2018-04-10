@@ -137,17 +137,17 @@ class RechnungController extends Controller
 
 
             if(isset($bills[$rechnungsid]))
-                $count = count($bills[$rechnungsid]) + 2;
+                $count = count($bills[$rechnungsid]) + 4;
 
             else
-                $count = 2;
+                $count = 4;
 
             $bills[$rechnungsid][0] = $rechnung->id;
             $bills[$rechnungsid][1] = $rechnung->grund->name;
+            $bills[$rechnungsid][2] = $abrechner->vorName;
+            $bills[$rechnungsid][3] = $abrechner->nachName;
             $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
             $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
-            $bills[$rechnungsid][$count]["abrechnerVor"] = $abrechner->vorName;
-            $bills[$rechnungsid][$count]["abrechnerNach"] = $abrechner->nachName;
             $bills[$rechnungsid][$count]["rechnungsposid"] = $rechnungspos->id;
 
         }
@@ -191,17 +191,27 @@ class RechnungController extends Controller
 
         $bills = array();
 
-        for ($i = 0; $i < count($user_has_rechnungspos); $i++) {
+        for ($i = count($user_has_rechnungspos) - 1;$i >= 0; $i--) {
 
             $rechnungspos = $user_has_rechnungspos[$i]->rechnungspos;
             $rechnung = $rechnungspos->rechnung;
-
             $abrechner = $rechnung->abrechner;
+            $rechnungsid = $rechnung->id;
 
-            $bills[$i]["name"] = $rechnungspos->bezeichnung;
-            $bills[$i]["betrag"] = $user_has_rechnungspos[$i]->betrag;
-            $bills[$i]["abrechnerVor"] = $abrechner->vorName;
-            $bills[$i]["abrechnerNach"] = $abrechner->nachName;
+
+            if(isset($bills[$rechnungsid]))
+                $count = count($bills[$rechnungsid]) + 4;
+
+            else
+                $count = 4;
+
+            $bills[$rechnungsid][0] = $rechnung->id;
+            $bills[$rechnungsid][1] = $rechnung->reason;
+            $bills[$rechnungsid][2] = $abrechner->vorName;
+            $bills[$rechnungsid][3] = $abrechner->nachName;
+            $bills[$rechnungsid][$count]["name"] = $rechnungspos->bezeichnung;
+            $bills[$rechnungsid][$count]["betrag"] = $user_has_rechnungspos[$i]->betrag;
+            $bills[$rechnungsid][$count]["rechnungsposid"] = $rechnungspos->id;
 
         }
 

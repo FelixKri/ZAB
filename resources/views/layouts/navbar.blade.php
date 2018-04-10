@@ -23,7 +23,7 @@
         </ul>
         @if(Auth::check())
             <ul class="navbar-nav my-2 my-lg-0">
-                    @if($user->canWrite == true)
+                    @if($user->canWrite == true)    
                     <li class="nav-item">
                         <a class="btn btn-success" href="/bill/new">Rechnung erstellen</a>
                     </li>
@@ -36,6 +36,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{$user->vorName}} {{$user->nachName}}
+                            {{$user->klasse->name}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="/">Offene Rechnungen</a>
