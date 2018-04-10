@@ -18,7 +18,7 @@
                 <div class="card-header">
                     <h2 class="card-title">{{$bill[1]}}</h2>
                     <p class="card-subtitle mb-2 text-muted">
-                        Abrechner: {{$bill[1]}} {{$bill[2]}}
+                        Abrechner: {{$bill[2]}} {{$bill[3]}}
                     </p>
                 </div>
                 <div class="card-body">
