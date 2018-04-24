@@ -48159,7 +48159,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -48170,6 +48170,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48274,13 +48281,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { attrs: { id: "rechnungspos_" + _vm.id2 } }, [
-      _c("table", { staticStyle: { width: "90%" } }, [
+      _c("table", { staticStyle: { width: "100%" } }, [
         _c("tr", [
-          _c("td", [_c("span", [_vm._v(_vm._s(_vm.id2) + ".")])]),
-          _vm._v(" "),
-          _c("td", [
+          _c("td", { staticStyle: { width: "60%" } }, [
+            _c(
+              "span",
+              { staticStyle: { float: "left", "font-size": "1.5em" } },
+              [_vm._v(_vm._s(_vm.id2) + ".  ")]
+            ),
+            _vm._v(" "),
             _c("input", {
-              staticClass: "form-control form-control-sm rechnungsposname",
+              staticClass: "form-control rechnungsposname",
               staticStyle: { width: "55%" },
               attrs: {
                 type: "text",
@@ -48288,14 +48299,20 @@ var render = function() {
                 placeholder: "Name der Position"
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
         ])
       ]),
       _vm._v(" "),
       _c(
         "table",
         [
-          _vm._m(0),
+          _vm._m(3),
           _vm._v(" "),
           _vm._l(this.$parent.$parent.students, function(student) {
             return _c("tr", { attrs: { id: student["id"] + "_" + _vm.id2 } }, [
@@ -48394,6 +48411,55 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticStyle: { width: "15%" } }, [
+      _c("input", {
+        staticClass: "form-control",
+        staticStyle: { width: "100%" },
+        attrs: {
+          type: "number",
+          id: "aufteilBetrag",
+          name: "aufteilBetrag",
+          placeholder: "Betrag"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticStyle: { width: "7%" } }, [
+      _c("input", {
+        staticClass: "form-control btn btn-primary",
+        attrs: {
+          type: "button",
+          id: "aufteilenAlle",
+          name: "aufteilenAlle",
+          value: "Auf Alle Aufteilen"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticStyle: { width: "7%" } }, [
+      _c("input", {
+        staticClass: "form-control btn btn-primary",
+        attrs: {
+          type: "button",
+          id: "zuweisenJedem",
+          name: "zuweisenJedem",
+          value: "Betrag jedem zuweisen"
+        }
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
