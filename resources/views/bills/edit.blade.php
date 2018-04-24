@@ -12,31 +12,29 @@
 <div class="container">
 	@include('layouts.navbar')
 	<form method="post">
-	    <h1>Rechnungsname / Grund</h1>
-	    <h3>Abrechner: Abrechnername</h3>
-	   	<div class="jumbotron">
-	   		<h2>Rechnungsposname</h2>
-	   		<table align="center">
-	   			<tr>
-	   				<td>Timon Griesfelder</td>
-	   				<td><input type="number" value="230" class="form-control form-control-sn"/></td>
-	   			</tr>
-	   		</table>
-	   	</div>
-	   	<div class="jumbotron">
-	   		<h2>Rechnungsposname 2</h2>
-			<table align="center">
-	   			<tr>
-	   				<td>Hans Peter</td>
-	   				<td><input type="number" value="300" class="form-control form-control-sn"/></td>
-	   			</tr>
-	   			<tr>
-	   				<td>Rudi Rüssel</td>
-	   				<td><input type="number" value="400" class="form-control form-control-sn"/></td>
-	   			</tr>
-	   		</table>
-	   	</div>
-	   	<input type="submit" value="Speichern" class="btn btn-primary" />
+	    <p><h1>Bezeichnung: <input type="text" class="form-control-lg text-dark" value="{{$rechnung->grund->name}}" placeholder="{{$rechnung->grund->name}}"/></h1></p>
+	    <h3>Abrechner: {{$rechnung->abrechner->vorName}} {{$rechnung->abrechner->nachName}}</h3>
+
+	    @foreach($rechnungsposes as $rechnungspos)
+			<div class="jumbotron text-dark">
+		   		<input type="text" class="form-control form-control-lg" value="{{$rechnungspos->bezeichnung}}" placeholder="{{$rechnungspos->bezeichnung}}"/>
+		   		<table class="table">
+		   			@foreach($rechnungspos->user_has_rechnungspos as $user_has_rechnungspos)
+		   			<tr>
+		   				<td><h4>{{$user_has_rechnungspos->user->vorName}} {{$user_has_rechnungspos->user->nachName}}</h4></td>
+		   				<td><input type="number" class="form-control" value="{{$user_has_rechnungspos->betrag}}" placeholder="{{$user_has_rechnungspos->betrag}}"/></td>
+		   				<td><input type="button" class="btn btn-primary" value="Entfernen"/></td>
+		   			</tr>
+		   			@endforeach
+		   			<tr><td><input type="text" class="form-control" placeholder="Name" /></td>
+		   				<td><input type="number" class="form-control" placeholder="Betrag" /></td>
+		   				<td><input type="button" class="btn btn-primary" value="Schüler hinzufügen"/></td></tr>
+		   		</table>
+
+		   	</div>
+	    @endforeach
+	    <p><input type="button" class="btn btn-primary" value="Rechnungsposition hinzufügen"/>
+	   	<input type="submit" align="center" value="Speichern" class="btn btn-success"/></p>
    </form>
 </div>
 @endsection

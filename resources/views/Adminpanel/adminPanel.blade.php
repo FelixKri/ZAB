@@ -40,7 +40,7 @@
                             <td>{{$bill->abrechner->vorName}} {{$bill->abrechner->nachName}}</td>
                             <td>4</td>
                             <td>
-                                <small><a href="/">Edit</a></small>
+                                <small><a href="/bill/edit/{{$bill->id}}">Edit</a></small>
                             </td>
                         </tr>
                     @endforeach

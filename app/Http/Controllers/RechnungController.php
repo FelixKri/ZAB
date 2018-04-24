@@ -222,12 +222,14 @@ class RechnungController extends Controller
 
     }
 
-    public function edit()
+    public function edit($id)
     {
-
         $user = Auth::user();
-        return view('bills/edit', compact('user'));
 
+        $rechnung = Rechnung::where('id', $id)->first();
+        $rechnungsposes = $rechnung->rechnungspos;
+
+        return view('bills/edit', compact('user', 'rechnung', 'rechnungsposes'));
     }
 
     public function autocomplete()

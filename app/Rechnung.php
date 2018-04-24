@@ -11,7 +11,7 @@ class Rechnung extends Model
     ];
 
     public function rechnungspos(){
-        return $this->hasMany(Rechnungspos::class);
+        return $this->hasMany(Rechnungspos::class, 'rechnungs_id');
     }
     public function abrechner(){
         return $this->belongsTo(User::class);
