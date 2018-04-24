@@ -41,6 +41,7 @@
                 let rechnungspos_name;
                 let values = [];
                 let user_ids = [];
+                let bemerkungen = [];
                 let rechnungspositionen = [];
                 let rechnungsgrund = $("#grund").val(); //Ermittlung des Abrechnungsgrundes
 
@@ -53,14 +54,18 @@
                         values.push($(this).val());
                         user_ids.push($(this).attr("name").split('_')[0]);
                     });
+                    $("#rechnungspos_" + id + " .rechnungspos_bemerkung").each(function(){
+                        bemerkungen.push($(this).val());
+                    });
 
                     if (values.length === 0 || user_ids.length === 0) {
                         console.log("Something is missing");
                     }
 
-                    rechnungspositionen.push([rechnungspos_name, values, user_ids]);
+                    rechnungspositionen.push([rechnungspos_name, values, user_ids, bemerkungen]);
                     values = [];
                     user_ids = [];
+                    bemerkungen = [];
                 }
 
                 $.ajax({
@@ -73,19 +78,17 @@
                     },
 
                     success: function success(response) {
+                        let x = document.getElementById("snackbar");
 
+                        // Add the "show" class to DIV
+                        x.className = "show";
+
+                        // After 3 seconds, remove the show class from DIV
+                        setTimeout(function () {
+                            x.className = x.className.replace("show", "");
+                        }, 3000);
                     }
                 });
-
-                let x = document.getElementById("snackbar");
-
-                // Add the "show" class to DIV
-                x.className = "show";
-
-                // After 3 seconds, remove the show class from DIV
-                setTimeout(function () {
-                    x.className = x.className.replace("show", "");
-                }, 3000);
             }
         },
         mounted() {

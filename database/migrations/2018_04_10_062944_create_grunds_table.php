@@ -17,7 +17,6 @@ class CreateGrundsTable extends Migration
         Schema::create('grunds', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('rechnung_id');
             $table->timestamps();
         });
 

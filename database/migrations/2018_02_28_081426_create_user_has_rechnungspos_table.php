@@ -19,6 +19,7 @@ class CreateUserHasRechnungsposTable extends Migration
             $table->integer('user_id');
             $table->integer('rechnungspos_id');
             $table->boolean('bezahlt');
+            $table->string('bemerkung')->nullable($value = true);
             $table->integer('betrag');
             $table->timestamps();
         });
@@ -32,7 +33,7 @@ class CreateUserHasRechnungsposTable extends Migration
             //'vorName' => 'Felix',
             'user_id' => 1, 
             'rechnungspos_id' => 1, 
-            'bezahlt' => false, 
+            'bezahlt' => false,
             'betrag' => 100
         ]);
         user_has_rechnungspos::create([

@@ -69,17 +69,19 @@ class RechnungController extends Controller
 
             'rechnungsgrund' => 'required|max:200',
             'rechnungspositionen' => 'required|array',
-            'rechnungspositionen.*' => 'required|distinct',
+            'rechnungspositionen.0' => 'required|distinct',
+            'rechnungspositionen.*' => 'distinct',
             'rechnungspositionen.*.*' => 'required',
             'rechnungspositionen.*.0' => 'required|distinct',
             'rechnungspositionen.*.1' => 'required|array|',
             'rechnungspositionen.*.1.*' => 'required|numeric',
             'rechnungspositionen.*.2' => 'required|array|',
             'rechnungspositionen.*.2.*' => 'required|numeric',
+            'rechnungspositionen.*.3' => 'required|array',
+
 
         ]);
 
-        //dd(request()->all());
         $rechnung = new Rechnung;
         $grundcheck = Grund::where('name', '=', request()->rechnungsgrund)->first();
         if ($grundcheck === null) {
@@ -90,7 +92,7 @@ class RechnungController extends Controller
         }else{
             $grund = $grundcheck;
         }
-        $rechnung->reason_id = $grund->id;
+        $rechnung->grund_id = $grund->id;
         $rechnung->abrechner_id = Auth::user()->id;
         $rechnung->save();
 
@@ -109,6 +111,7 @@ class RechnungController extends Controller
                 $user_has_rechnungspos->rechnungspos_id = $rechnungsposition->id;
                 $user_has_rechnungspos->bezahlt = false;
                 $user_has_rechnungspos->betrag = $rechnungsposdata[1][$j];
+                $user_has_rechnungspos->bemerkung = $rechnungsposdata[3][$j];
                 $user_has_rechnungspos->save();
                 $j++;
             }
