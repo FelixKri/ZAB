@@ -2,14 +2,21 @@
     <!-- ID2 ist die Id der Rechnungsposition, startet immer mit 1 -->
     <div>
         <div :id="'rechnungspos_'+id2">
-            <table style="width:90%;">
+            <table style="width:100%;">
                 <tr>
-                    <td>
-                        <span>{{id2}}.</span>
-                    </td>
-                    <td>
+                    <td style="width: 60%;">
+                        <span style="float:left; font-size: 1.5em;">{{id2}}.&nbsp; </span>
                         <input type="text" :id="'rechnungsposname_' + id2" placeholder="Name der Position"
-                               class="form-control form-control-sm rechnungsposname" style="width: 55%;">
+                               class="form-control rechnungsposname" style="width: 55%;">
+                    </td>
+                    <td style="width: 15%;">
+                        <input style="width: 100%;" type="number" id="aufteilBetrag" name="aufteilBetrag" class="form-control" placeholder="Betrag">
+                    </td>
+                    <td style="width: 7%;">
+                        <input type="button" id="aufteilenAlle" name="aufteilenAlle" class="form-control btn btn-primary" value="Auf Alle Aufteilen">
+                    </td>
+                    <td style="width: 7%;">
+                        <input type="button" id="zuweisenJedem" name="zuweisenJedem" class="form-control btn btn-primary" value="Betrag jedem zuweisen">
                     </td>
                 </tr>
             </table>
