@@ -1,0 +1,9 @@
+todo
+-beim abrechnen fehlermeldung
+-bei erfolgreichem abrechnen banner "Erfolgreich" anzeigen kein kack popup
+-rechnungskopf in datenbank betrag speichern
+-adminpanel offene grund anzeigen?
+-Gründe als intellisense anzeigen
+-Gründe von admins anlegen lassen
+-bei bezahlten rechnungsgrund anzeigen
+-kommazahlen erlauben und 2 kommastellen anzeigen
